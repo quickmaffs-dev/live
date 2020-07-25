@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/live/static/css/main.a7cf942f.chunk.css",
-    "main.js": "/live/static/js/main.89c4ba22.chunk.js",
-    "main.js.map": "/live/static/js/main.89c4ba22.chunk.js.map",
-    "runtime-main.js": "/live/static/js/runtime-main.57a36af5.js",
-    "runtime-main.js.map": "/live/static/js/runtime-main.57a36af5.js.map",
-    "static/js/2.2d505269.chunk.js": "/live/static/js/2.2d505269.chunk.js",
-    "static/js/2.2d505269.chunk.js.map": "/live/static/js/2.2d505269.chunk.js.map",
-    "index.html": "/live/index.html",
-    "precache-manifest.382f2186dc7f029dcef1b0046bd19ca5.js": "/live/precache-manifest.382f2186dc7f029dcef1b0046bd19ca5.js",
-    "service-worker.js": "/live/service-worker.js",
-    "static/css/main.a7cf942f.chunk.css.map": "/live/static/css/main.a7cf942f.chunk.css.map",
-    "static/js/2.2d505269.chunk.js.LICENSE.txt": "/live/static/js/2.2d505269.chunk.js.LICENSE.txt",
-    "static/media/icon.png": "/live/static/media/icon.a33a624f.png",
-    "static/media/trigDepression.png": "/live/static/media/trigDepression.46a9d6a5.png",
-    "static/media/trigElevation.png": "/live/static/media/trigElevation.d17fcac7.png"
+    "main.css": "/static/css/main.a7cf942f.chunk.css",
+    "main.js": "/static/js/main.19e1ceeb.chunk.js",
+    "main.js.map": "/static/js/main.19e1ceeb.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.7c196ed6.js",
+    "runtime-main.js.map": "/static/js/runtime-main.7c196ed6.js.map",
+    "static/js/2.bf456495.chunk.js": "/static/js/2.bf456495.chunk.js",
+    "static/js/2.bf456495.chunk.js.map": "/static/js/2.bf456495.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.4dd9750d260c0df169f11e17dc994697.js": "/precache-manifest.4dd9750d260c0df169f11e17dc994697.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.a7cf942f.chunk.css.map": "/static/css/main.a7cf942f.chunk.css.map",
+    "static/js/2.bf456495.chunk.js.LICENSE.txt": "/static/js/2.bf456495.chunk.js.LICENSE.txt",
+    "static/media/icon.png": "/static/media/icon.a33a624f.png",
+    "static/media/trigDepression.png": "/static/media/trigDepression.46a9d6a5.png",
+    "static/media/trigElevation.png": "/static/media/trigElevation.d17fcac7.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.57a36af5.js",
-    "static/js/2.2d505269.chunk.js",
+    "static/js/runtime-main.7c196ed6.js",
+    "static/js/2.bf456495.chunk.js",
     "static/css/main.a7cf942f.chunk.css",
-    "static/js/main.89c4ba22.chunk.js"
+    "static/js/main.19e1ceeb.chunk.js"
   ]
 }
