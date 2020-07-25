@@ -1,0 +1,134 @@
+.Navbar {
+    margin: 0;
+    background-color: #001E3C;
+    width: 100%;
+    text-align: left;
+    /*padding-left: 40px;*/
+    height: 60px;
+    font-size: 24px;
+    font-family: 'Homenaje';
+    color: #FFF9C7;
+    position: relative;
+    text-decoration: none;
+}
+
+.NavLeft {
+    position: absolute;
+    left: 60px;    
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    outline: none;
+    padding: 14px 16px;
+    margin: 0;
+    border: none;
+    background: none;
+    color: #FFF9C7;
+    text-decoration: none;
+    position: relative;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.15em;
+
+    display: inline-block;
+    padding: 15px 20px;
+}
+
+.dropdown-content {
+    display: none;
+    z-index: 1;
+}
+
+.dropdown-content button {
+    float: none;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    background-color: #001E3C;
+    color: #FFF9C7;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    width: 115px;
+
+}
+
+.dropdown-content button:hover {    
+    background-color: #935AFE;    
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.NavRight {    
+    position: absolute;
+    right: 40px;     
+}
+
+.NavRight p {    
+    display: inline;
+}
+
+.Navbar_link {
+    border: none;
+    background: none;
+    color: #FFF9C7;
+    text-decoration: none;
+    position: relative;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    
+    display: inline-block;
+    padding: 15px 20px;
+    float: left;
+}
+
+.Navbar_link:after {    
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: #fff;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+}
+
+.Navbar_link:hover:after { 
+    width: 100%; 
+    left: 0; 
+}
+
+.Footer {
+    width: 100%;
+    clear: both;
+    position: relative;
+    height: 50px;
+    margin-top: -50px;
+    background-color: #001E3C;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.Footer p {
+    text-align: center;
+    color: #FFF9C7;
+}
+
+#musicPlayerID, #musicID {
+    display: none;
+    float: left;
+} 
+
+#musicID {
+    padding: 14px 16px;
+}

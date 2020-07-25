@@ -1,0 +1,119 @@
+.workspace {
+    text-align: center;
+}
+
+.workspace h1, h3, p {
+    text-align: left;
+
+}
+
+#startSessionBtnID {
+    width: 20%;
+    height: 50px;
+    background-color: #00B6FF;
+    /*border: none;*/
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+#startSessionBtnID:hover {
+    background-color: #006D99;
+}
+
+.questionBody {
+    display: none;
+    position: relative;
+    /*font-family: CMSY10, CMEX10, Symbol, Times;*/
+    font-size: 20px;    
+    min-width: 600px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.questionBody button {
+    margin: 4px 2px;
+    font-family: 'Orienta', 'Arial', sans-serif;
+}
+
+.questionBody button, #userInputStringID {
+    width: 23%;
+    height: 50px;
+    font-size: 18px;       
+}
+
+#userInputStringID {
+    padding-left: 20px;
+    width: 300px;
+}
+
+#questionStringID {
+    
+}
+
+#questionStringID table {
+    border-collapse: collapse;
+}
+
+#questionStringID td {
+    border: solid 1px;
+    text-align: center;
+    width: 70px;
+}
+
+#questionStringID, .multipleChoice {
+    /*font-family: CMSY10, CMEX10, Symbol, Times;*/
+    font-family: "Times New Roman", Courier, Garamond, serif;
+    font-family: 'Orienta', 'Arial', sans-serif;
+}
+
+.fraction {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    --flex-vertical-align: 1child;
+}
+  
+.fraction-line {
+    margin-top: -1ex;
+    margin-bottom: -1.3ex;
+    letter-spacing: -0.17ex;
+}
+  
+  
+
+.questionBody img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* pronumerals */
+.questionBody span, #testID span {
+    font-style: italic;
+    font-family: "Times New Roman", Courier, Garamond, serif;
+}
+
+#scoreID {    
+    float: right; 
+    width: 30%;
+}
+
+#userInputStringID {
+    border-radius: 5px;
+    height: 45px;
+}
+
+#userInputBtnID, #nextQuesBtnID {
+    border-radius: 5px;
+    height: 51px;
+}
+
+#userInputBtnID:hover, #nextQuesBtnID:hover {
+    background-color: #001E3C;
+    color: white;
+}
+
+.resultInfo {
+}
