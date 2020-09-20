@@ -2,7 +2,10 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/database';
+import { useHistory } from 'react-router-dom';
 import app from 'firebase/app';
+
+const history = useHistory();  
 
 const firebaseConfig = {
     apiKey: "AIzaSyAHN7qi76sqh-ZHSlAGryJEbTvxcsvFJaY",
@@ -86,6 +89,8 @@ class Firebase {
                 if (pass === x.val()[k].password) {
                     this.currentUserID = x.val()[k].user_id;
                     this.currentUsername = x.val()[k].email;
+                    history.push("/live");
+
                     window.location.reload();
 
                     if (typeof(Storage) !== "undefined") {
