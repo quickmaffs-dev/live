@@ -6,6 +6,8 @@ class SidebarRight extends React.Component {
         if (document.querySelectorAll(".SidebarRightContent")[y].style.display === "block") {
             document.querySelectorAll(".SidebarRightContent")[y].style.display = "none";
             document.querySelectorAll(".SideBarRightBtn")[x].style.backgroundColor = "#00B6FF";
+            let s = document.getElementById("exampleVidID").src;
+            document.getElementById("exampleVidID").src = s;
         } else {
             document.querySelectorAll(".SidebarRightContent")[y].style.display = "block";
             document.querySelectorAll(".SidebarRightContent")[x].style.display = "none";
@@ -29,6 +31,8 @@ class SidebarRight extends React.Component {
                     <button onClick={this.openSheet.bind(this, 0, 1)}>X</button>
                     <h3>Example</h3>
                     <p id="exampleTextID">test</p>
+                    <iframe allowFullScreen="0" id="exampleVidID" style={{display: "none", padding:0}} width="420" height="315" title="exampleVideo">
+                    </iframe>
                 </div>
             </div>
         );

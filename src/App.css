@@ -21,6 +21,10 @@
   color: white;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .debugging {
   border: solid;
   padding: 20px;
@@ -103,7 +107,7 @@ p {
   position: absolute;
   top: 0;
   left: 0;
-  width:100%;
+  width:90%;
   height:100%;
   z-index: -1;
   -webkit-transform: translateZ(0);

@@ -1,6 +1,7 @@
 import React from 'react';
-import {getRandomNumber, printTest, reset, answerType, checkUserInputAns, dpCheck} from '../MathFunctions';
+import {getRandomNumber, printTest, reset, answerType, checkUserInputAns} from '../MathFunctions';
 import Workspace from '../../Workspace';
+import {decimals} from './algebra_exercises';
 
 class ex06_decimals extends React.Component {
     constructor(props) {
@@ -25,53 +26,29 @@ class ex06_decimals extends React.Component {
     }
     
     makeQuestion = () => { 
+        document.getElementById("startSessionBtnID").style.display = "none";
         reset();       
         answerType(3); // user input string == 3
         
         this.numQuestions += 1;
         let numQuestionTypes = 1;
         let chooseQuestion = getRandomNumber(1, numQuestionTypes, 0, 0);
-        let correctAns;
+        let correctAns, result;
         if (chooseQuestion === 1) {
-            correctAns = this.decimals();
+            result = decimals();
         } else {
             printTest("ERROR : chooseQuestion() = " + chooseQuestion);
         }
-
+        
+        this.question_string = result[0];
+        document.getElementById("questionStringID").innerHTML = result[0];
+        correctAns = result[1];
+        
         document.getElementById("userInputBtnID").onclick = () => {checkUserInputAns(correctAns, document.getElementById("userInputStringID").value, this.question_string, "algebra ex06")};
         
         this.writeFormula();
         this.writeExample();
 
-    }
-
-    decimals = () => {
-        let a = getRandomNumber(1, 10, getRandomNumber(0, 2, 0, 0), 0);
-        let b = getRandomNumber(1, 10, getRandomNumber(0, 2, 0, 0), 0);
-        let type = getRandomNumber(1, 4, 0, 0);
-        let ans, questionText;     
-        a = parseFloat(dpCheck(a));
-        b = parseFloat(dpCheck(b));
-        if (type === 1) {
-            questionText = "Simplify " + a + " + " + b;
-            ans = a + b;
-        } else if (type === 2) {
-            questionText = "Simplify " + a + " - " + b;
-            ans = a - b;
-        } else if (type === 3) {
-            questionText = "Simplify " + a + " &#215; " + b;
-            ans = a * b;
-        } else {
-            a = b * getRandomNumber(1, 12, 0, 0);
-            a = parseFloat(dpCheck(a));
-            questionText = "Simplify " + a + " &#247; " + b;
-            ans = a / b;
-        }
-        
-        this.question_string = questionText;
-        document.getElementById("questionStringID").innerHTML = questionText;        
-        ans = dpCheck(ans);
-        return ans;
     }
 
     writeFormula = () => {

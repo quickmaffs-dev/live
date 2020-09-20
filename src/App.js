@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useState } from "react";
 import { Route, Switch } from 'react-router-dom';
+import { UserContext } from "./components/UserContext";
 import './styling/sidebar.css';
-import './styling/workspace.css';
 import Home from './components/Home';
 import ErrorPage from './components/ErrorPage';
 import Chapters from './components/Chapters';
-import About from './components/About';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
+import Battle from './components/Battle';
 import Admin from './components/Admin';
+import HscGen from './components/HscGen';
 
 import ex01_addition_and_subtraction from './components/exercises/algebra/ex01_addition_and_subtraction';
 import ex02_multiplication from './components/exercises/algebra/ex02_multiplication';
@@ -48,80 +49,123 @@ import ex01_68_95_99_rule from './components/exercises/normal_distribution/ex01_
 import ex02_zscores from './components/exercises/normal_distribution/ex02_zscores';
 import ex03_average_and_standard_deviation from './components/exercises/normal_distribution/ex03_average_and_standard_deviation';
 
+import ex01_perimeter from './components/exercises/area_perimeter_and_volume/ex01_perimeter';
+import ex02_area from './components/exercises/area_perimeter_and_volume/ex02_area';
 
-//class App extends React.Component {
+import ex01_parts_of_circle from './components/exercises/circle_geometry/ex01_parts_of_circle';
+import ex02_angle_properties from './components/exercises/circle_geometry/ex02_angle_properties';
+
+import ex01_intervals from './components/exercises/coordinate_geometry/ex01_intervals';
+import ex02_inclination_angle from './components/exercises/coordinate_geometry/ex02_inclination_angle';
+import ex03_parallel_perpendicular_lines from './components/exercises/coordinate_geometry/ex03_parallel_perpendicular_lines';
+
+import ex01_wages_and_salaries from "./components/exercises/earning_money/ex01_wages_and_salaries";
+import ex02_overtime from "./components/exercises/earning_money/ex02_overtime";
+import ex03_commission_piecework_and_leave_loading from "./components/exercises/earning_money/ex03_commission_piecework_and_leave_loading";
+import ex04_income_tax from "./components/exercises/earning_money/ex04_income_tax";
+import ex05_payg_tax from "./components/exercises/earning_money/ex05_payg_tax";
+import ex01_averages_and_range from "./components/exercises/investigating_data/ex01_averages_and_range";
+
+import std_1_2019 from './components/exercises/hsc/std_1_2019';
+
 function App() {
-  //render() {
+  const [userID, setUserID] = useState(null);
+  //const [username, setUsername] = useState(null);
+
+  //const value = useMemo(() => ({ userID, setUserID }), [userID, setUserID]);
   return (
     <div>
       <div className="App">
-        <Navbar />
-        <main className="content">
-          <Switch>
-            <Route path="/" component={Home} exact />
-            <Route path="/chapters" component={Chapters} />
-            <Route path="/about" component={About} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/admin" component={Admin} />
+        <UserContext.Provider value={[userID, setUserID]}>
+          <Navbar />
+          <main className="content">
+            <Switch>
+              <Route path="/" component={Home} exact />
+              <Route path="/chapters" component={Chapters} />
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/dashboard" component={Dashboard} />
+              <Route path="/battle" component={Battle} />
+              <Route path="/admin" component={Admin} />
+              <Route path="/live" component={Home} /> {/* for github pages publhed as "live" */}
+              <Route path="/HscGen" component={HscGen} />
 
-            {/* year 7 */}
-            <Route path="/exercises/algebra/ex01_addition_and_subtraction" component={ex01_addition_and_subtraction} /> 
-            <Route path="/exercises/algebra/ex02_multiplication" component={ex02_multiplication} /> 
+              {/* year 7 */}
+              <Route path="/exercises/algebra/ex01_addition_and_subtraction" component={ex01_addition_and_subtraction} /> 
+              <Route path="/exercises/algebra/ex02_multiplication" component={ex02_multiplication} /> 
 
-            {/* year 9 */}
-            <Route path="/exercises/algebra/ex03_bidmas" component={ex03_bidmas} /> 
-            <Route path="/exercises/algebra/ex05_fractions" component={ex05_fractions} />
-            <Route path="/exercises/algebra/ex06_decimals" component={ex06_decimals} />
-            <Route path="/exercises/algebra/ex07_converting_fractions_decimals" component={ex07_converting_fractions_decimals} />
-            
-            {/* year 11 */}
-            <Route path="/exercises/algebra/ex04_pronumerals" component={ex04_pronumerals} /> 
-            
-            {/* year 12 */}
-            <Route path="/exercises/rates_and_ratios/ex01_converting_rates" component={ex01_converting_rates} /> 
-            <Route path="/exercises/rates_and_ratios/ex02_ratios" component={ex02_ratios} /> 
-            <Route path="/exercises/rates_and_ratios/ex03_scales" component={ex03_scales} /> 
+              {/* year 9 */}
+              <Route path="/exercises/algebra/ex03_bidmas" component={ex03_bidmas} /> 
+              <Route path="/exercises/algebra/ex05_fractions" component={ex05_fractions} />
+              <Route path="/exercises/algebra/ex06_decimals" component={ex06_decimals} />
+              <Route path="/exercises/algebra/ex07_converting_fractions_decimals" component={ex07_converting_fractions_decimals} />
+              <Route path="/exercises/area_perimeter_and_volume/ex01_perimeter" component={ex01_perimeter} />
+              <Route path="/exercises/area_perimeter_and_volume/ex02_area" component={ex02_area} />
+              <Route path="/exercises/earning_money/ex01_wages_and_salaries" component={ex01_wages_and_salaries} />
+              <Route path="/exercises/earning_money/ex02_overtime" component={ex02_overtime} />
+              <Route path="/exercises/earning_money/ex03_commission_piecework_and_leave_loading" component={ex03_commission_piecework_and_leave_loading} />
+              <Route path="/exercises/earning_money/ex04_income_tax" component={ex04_income_tax} />
+              <Route path="/exercises/earning_money/ex05_payg_tax" component={ex05_payg_tax} />
+              <Route path="/exercises/investigating_data/ex01_averages_and_range" component={ex01_averages_and_range} />
 
-            <Route path="/exercises/investments_and_loans/ex01_compound_interest" component={ex01_compound_interest} /> 
-            
-            <Route path="/exercises/trigonometry/ex01_soh_cah_toa" component={ex01_soh_cah_toa} /> 
-            <Route path="/exercises/trigonometry/ex02_elevation_and_depression" component={ex02_elevation_and_depression} /> 
-            <Route path="/exercises/trigonometry/ex03_bearings" component={ex03_bearings} /> 
-            <Route path="/exercises/trigonometry/ex04_sine_rule" component={ex04_sine_rule} /> 
-            <Route path="/exercises/trigonometry/ex05_cosine_rule" component={ex05_cosine_rule} /> 
-            <Route path="/exercises/trigonometry/ex06_solve_ratios" component={ex06_solve_ratios} /> 
-            
-            <Route path="/exercises/simultaneous_equations/ex01_identify_graphs" component={ex01_identify_graphs} /> 
-            <Route path="/exercises/simultaneous_equations/ex02_linear_relationships" component={ex02_linear_relationships} /> 
-            <Route path="/exercises/simultaneous_equations/ex03_points_of_intersection" component={ex03_points_of_intersection} /> 
+              {/* year 10 */}
+              <Route path="/exercises/circle_geometry/ex01_parts_of_circle" component={ex01_parts_of_circle} /> 
+              <Route path="/exercises/circle_geometry/ex02_angle_properties" component={ex02_angle_properties} /> 
+              
+              <Route path="/exercises/coordinate_geometry/ex01_intervals" component={ex01_intervals} /> 
+              <Route path="/exercises/coordinate_geometry/ex02_inclination_angle" component={ex02_inclination_angle} /> 
+              <Route path="/exercises/coordinate_geometry/ex03_parallel_perpendicular_lines" component={ex03_parallel_perpendicular_lines} /> 
+              
+              {/* year 11 */}
+              <Route path="/exercises/algebra/ex04_pronumerals" component={ex04_pronumerals} /> 
+              
+              {/* year 12 */}
+              <Route path="/exercises/rates_and_ratios/ex01_converting_rates" component={ex01_converting_rates} /> 
+              <Route path="/exercises/rates_and_ratios/ex02_ratios" component={ex02_ratios} /> 
+              <Route path="/exercises/rates_and_ratios/ex03_scales" component={ex03_scales} /> 
 
-            <Route path="/exercises/data_analysis/ex01_scatterplots" component={ex01_scatterplots} /> 
-            <Route path="/exercises/data_analysis/ex02_linear_association" component={ex02_linear_association} /> 
+              <Route path="/exercises/investments_and_loans/ex01_compound_interest" component={ex01_compound_interest} /> 
+              
+              <Route path="/exercises/trigonometry/ex01_soh_cah_toa" component={ex01_soh_cah_toa} /> 
+              <Route path="/exercises/trigonometry/ex02_elevation_and_depression" component={ex02_elevation_and_depression} /> 
+              <Route path="/exercises/trigonometry/ex03_bearings" component={ex03_bearings} /> 
+              <Route path="/exercises/trigonometry/ex04_sine_rule" component={ex04_sine_rule} /> 
+              <Route path="/exercises/trigonometry/ex05_cosine_rule" component={ex05_cosine_rule} /> 
+              <Route path="/exercises/trigonometry/ex06_solve_ratios" component={ex06_solve_ratios} /> 
+              
+              <Route path="/exercises/simultaneous_equations/ex01_identify_graphs" component={ex01_identify_graphs} /> 
+              <Route path="/exercises/simultaneous_equations/ex02_linear_relationships" component={ex02_linear_relationships} /> 
+              <Route path="/exercises/simultaneous_equations/ex03_points_of_intersection" component={ex03_points_of_intersection} /> 
 
-            <Route path="/exercises/annuities/ex01_modelling_annuities" component={ex01_modelling_annuities} /> 
-            <Route path="/exercises/annuities/ex02_future_value_table" component={ex02_future_value_table} /> 
+              <Route path="/exercises/data_analysis/ex01_scatterplots" component={ex01_scatterplots} /> 
+              <Route path="/exercises/data_analysis/ex02_linear_association" component={ex02_linear_association} /> 
 
-            <Route path="/exercises/normal_distribution/ex01_68_95_99_rule" component={ex01_68_95_99_rule} /> 
-            <Route path="/exercises/normal_distribution/ex02_zscores" component={ex02_zscores} /> 
-            <Route path="/exercises/normal_distribution/ex03_average_and_standard_deviation" component={ex03_average_and_standard_deviation} /> 
-            
-            <Route component={ErrorPage} />
-          </Switch>
-        </main>
-        
-        <div className="animation">
-          <ul className="quadrados"><li></li><li></li><li></li><li></li><li></li></ul>
-        </div>
-        <Footer />
-        
-  
+              <Route path="/exercises/annuities/ex01_modelling_annuities" component={ex01_modelling_annuities} /> 
+              <Route path="/exercises/annuities/ex02_future_value_table" component={ex02_future_value_table} /> 
+
+              <Route path="/exercises/normal_distribution/ex01_68_95_99_rule" component={ex01_68_95_99_rule} /> 
+              <Route path="/exercises/normal_distribution/ex02_zscores" component={ex02_zscores} /> 
+              <Route path="/exercises/normal_distribution/ex03_average_and_standard_deviation" component={ex03_average_and_standard_deviation} /> 
+              
+
+              {/* hsc gen */}
+              <Route path="/exercises/hsc/std_1_2019" component={std_1_2019} /> 
+              
+
+              <Route component={ErrorPage} />
+            </Switch>
+          </main>
+          
+          <div className="animation">
+            <ul className="quadrados"><li></li><li></li><li></li><li></li><li></li></ul>
+          </div>
+          <Footer />
+          
+        </UserContext.Provider>
       </div>
     </div>
     
     );
-//  }
 }
 
 export default App;

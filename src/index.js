@@ -8,7 +8,6 @@ import { BrowserRouter } from 'react-router-dom';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-        <base href="https://quickmaffs-dev.github.io/live/"></base>
         <App />
     </BrowserRouter>
   </React.StrictMode>,

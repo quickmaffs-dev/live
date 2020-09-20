@@ -74,6 +74,58 @@ class SidebarNew extends React.Component {
             this.chp01ex03Link = "/exercises/algebra/ex06_decimals?yr=%" + yr + "%";
             this.chp01ex04 = "Ex 04 Converting fractions and decimals";
             this.chp01ex04Link = "/exercises/algebra/ex07_converting_fractions_decimals?yr=%" + yr + "%";
+            
+            this.chp08 = "Earning Money";
+            
+            this.chp08ex01 = "Ex 01 Wages & Salaries";
+            this.chp08ex01Link = "/exercises/earning_money/ex01_wages_and_salaries?yr=%" + yr + "%";
+            this.chp08ex02 = "Ex 02 Overtime";
+            this.chp08ex02Link = "/exercises/earning_money/ex02_overtime?yr=%" + yr + "%";
+            this.chp08ex03 = "Ex 03 Commision, Piecework and Leave Loading";
+            this.chp08ex03Link = "/exercises/earning_money/ex03_commission_piecework_and_leave_loading?yr=%" + yr + "%";
+            this.chp08ex04 = "Ex 04 Income Tax";
+            this.chp08ex04Link = "/exercises/earning_money/ex04_income_tax?yr=%" + yr + "%";
+            this.chp08ex05 = "Ex 05 PAYG Tax";
+            this.chp08ex05Link = "/exercises/earning_money/ex05_payg_tax?yr=%" + yr + "%";
+
+            this.chp09 = "Investigating Data";
+            
+            this.chp09ex01 = "Ex 01 Averages and Range";
+            this.chp09ex01Link = "/exercises/investigating_data/ex01_averages_and_range?yr=%" + yr + "%";
+            
+            this.chp10 = "Surface Area and Volume";
+            
+            this.chp10ex01 = "Ex 01 Converting Units";
+            this.chp10ex01Link = "/exercises/rates_and_ratios/ex01_converting_rates?yr=%" + yr + "%";
+            this.chp10ex02 = "Ex 02 Perimeter";
+            this.chp10ex02Link = "/exercises/area_perimeter_and_volume/ex02_perimeter?yr=%" + yr + "%";
+            this.chp10ex03 = "Ex 03 Area";
+            this.chp10ex03Link = "/exercises/area_perimeter_and_volume/ex03_area?yr=%" + yr + "%";
+
+            this.chp11 = "Coordinate Geometry";
+            
+            this.chp11ex01 = "Ex 01 Distance, midpoints and gradients";
+            this.chp11ex01Link = "/exercises/coordinate_geometry/ex01_intervals?yr=%" + yr + "%";
+        } else if (this.year === "10") {    
+            this.changeBackgroundColour("#FFB22C");
+            this.chp01 = "Coordinate Geometry";
+            
+            this.chp01ex01 = "Ex 01 Intervals";
+            this.chp01ex01Link = "/exercises/coordinate_geometry/ex01_intervals?yr=%" + yr + "%";
+            this.chp01ex02 = "Ex 02 Inclination Angle";
+            this.chp01ex02Link = "/exercises/coordinate_geometry/ex02_inclination_angle?yr=%" + yr + "%";
+            this.chp01ex03 = "Ex 03 Parallel and Perpendicular Lines";
+            this.chp01ex03Link = "/exercises/coordinate_geometry/ex03_parallel_perpendicular_lines?yr=%" + yr + "%";
+            this.chp01ex04 = "Ex 04 Identify graphs";
+            this.chp01ex04Link = "/exercises/simultaneous_equations/ex01_identify_graphs?yr=%" + yr + "%";
+
+            this.chp02 = "Circle Geometry";
+            
+            this.chp02ex01 = "Ex 01 Parts of a circle";
+            this.chp02ex01Link = "/exercises/circle_geometry/ex01_parts_of_circle?yr=%" + yr + "%";
+            this.chp02ex02 = "Ex 02 Angle Properties";
+            this.chp02ex02Link = "/exercises/circle_geometry/ex02_angle_properties?yr=%" + yr + "%";
+            
         } else if (this.year === "11") {    
             this.changeBackgroundColour("#2F0185");
             this.chp01 = "Algebra";
@@ -142,10 +194,10 @@ class SidebarNew extends React.Component {
             this.chp09ex02Link = "/exercises/normal_distribution/ex02_zscores?yr=%" + yr + "%";
             this.chp09ex03 = "Ex 03 Average and Standard Deviation";
             this.chp09ex03Link = "/exercises/normal_distribution/ex03_average_and_standard_deviation?yr=%" + yr + "%";
-
-
         } else {
-            this.redirect = "/error";
+            if (this.year !== "hsc") {
+                this.redirect = "/error";
+            }
         }
     }
 
@@ -157,6 +209,7 @@ class SidebarNew extends React.Component {
         } else {
             document.querySelectorAll(".contents")[0].style.left = "-200px";
             document.getElementById("sideBarBtnID").innerHTML = ">";
+            this.changeBackgroundColour("#111");
         }    
     }
     //<Link className="subnavLink" to={{pathname: this.chp01ex01Link, state:this.state}}>{this.chp01ex01}</Link>
@@ -175,6 +228,14 @@ class SidebarNew extends React.Component {
                             <Link className="subnavLink" to={`${this.chp01ex02Link}`}>{this.chp01ex02}</Link>
                             <Link className="subnavLink" to={`${this.chp01ex03Link}`}>{this.chp01ex03}</Link>
                             <Link className="subnavLink" to={`${this.chp01ex04Link}`}>{this.chp01ex04}</Link>
+                        </div>
+                    </div> 
+                    <div className="subnav">
+                        <button className="subnavbtn">{this.chp02}</button>
+                        <div className="subnav-content">
+                            <Link className="subnavLink" to={`${this.chp02ex01Link}`}>{this.chp02ex01}</Link>
+                            <Link className="subnavLink" to={`${this.chp02ex02Link}`}>{this.chp02ex02}</Link>
+                            <Link className="subnavLink" to={`${this.chp02ex03Link}`}>{this.chp02ex03}</Link>
                         </div>
                     </div> 
                     <div className="subnav">
@@ -217,11 +278,33 @@ class SidebarNew extends React.Component {
                         </div>
                     </div> 
                     <div className="subnav">
+                        <button className="subnavbtn">{this.chp08}</button>
+                        <div className="subnav-content">
+                            <Link className="subnavLink" to={`${this.chp08ex01Link}`}>{this.chp08ex01}</Link>
+                            <Link className="subnavLink" to={`${this.chp08ex02Link}`}>{this.chp08ex02}</Link>
+                            <Link className="subnavLink" to={`${this.chp08ex03Link}`}>{this.chp08ex03}</Link>
+                            <Link className="subnavLink" to={`${this.chp08ex04Link}`}>{this.chp08ex04}</Link>
+                            <Link className="subnavLink" to={`${this.chp08ex05Link}`}>{this.chp08ex05}</Link>
+                        </div>
+                    </div> 
+                    <div className="subnav">
                         <button className="subnavbtn">{this.chp09}</button>
                         <div className="subnav-content">
                             <Link className="subnavLink" to={`${this.chp09ex01Link}`}>{this.chp09ex01}</Link>
                             <Link className="subnavLink" to={`${this.chp09ex02Link}`}>{this.chp09ex02}</Link>
                             <Link className="subnavLink" to={`${this.chp09ex03Link}`}>{this.chp09ex03}</Link>
+                        </div>
+                    </div> 
+                    <div className="subnav">
+                        <button className="subnavbtn">{this.chp10}</button>
+                        <div className="subnav-content">
+                            <Link className="subnavLink" to={`${this.chp10ex01Link}`}>{this.chp10ex01}</Link>
+                        </div>
+                    </div> 
+                    <div className="subnav">
+                        <button className="subnavbtn">{this.chp11}</button>
+                        <div className="subnav-content">
+                            <Link className="subnavLink" to={`${this.chp11ex01Link}`}>{this.chp11ex01}</Link>
                         </div>
                     </div> 
                 </div>            

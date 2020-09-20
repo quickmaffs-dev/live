@@ -116,6 +116,11 @@
     padding-right: 50px;
 }
 
+#exampleVidID {
+    position: relative;
+    left: -150px;
+}
+
 .SidebarRightContent img {
     width: 100%;
 }

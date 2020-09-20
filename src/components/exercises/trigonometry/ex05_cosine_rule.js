@@ -1,6 +1,7 @@
 import React from 'react';
 import {getRandomNumber, printTest, shuffle, reset, answerType, checkAns} from '../MathFunctions';
 import Workspace from '../../Workspace';
+import {cosineRuleAngle, cosineRuleSide} from './trigonometry_exercises';
 
 class ex05_cosine_rule extends React.Component {
     constructor(props) {
@@ -31,17 +32,21 @@ class ex05_cosine_rule extends React.Component {
         let numQuestionTypes = 2;
         let chooseQuestion = getRandomNumber(1, numQuestionTypes, 0, 0);
         //chooseQuestion = numQuestionTypes;
-        let mcOptions;
+        let correctAns, result;
         
         if (chooseQuestion === 1) {
-            mcOptions = this.cosineRuleSide();
+            result = cosineRuleSide();
         } else if (chooseQuestion === 2) {
-            mcOptions = this.cosineRuleAngle();
+            result = cosineRuleAngle();
         } else {
             printTest("ERROR : chooseQuestion() = " + chooseQuestion);
         }
         
-        let correctAns = mcOptions[0];
+        this.question_string = result[0];
+		document.getElementById("questionStringID").innerHTML = result[0];
+		correctAns = result[1];
+		let mcOptions = result.slice(1, result.length);        
+		correctAns = mcOptions[0];
         shuffle(mcOptions);
         for (let i = 0; i < document.querySelectorAll(".mcAnsBtn").length; i++) {            
         document.querySelectorAll(".mcAnsBtn")[i].onclick = () => {checkAns(correctAns, document.querySelectorAll(".mcAnsBtn")[i].innerHTML, this.question_string, "trigonometry ex05")};            
@@ -50,133 +55,6 @@ class ex05_cosine_rule extends React.Component {
         this.writeFormula();
         this.writeExample();
 
-    }
-
-    drawTriangle = (a, b, c, alpha) => {
-        document.getElementById("questionDiagramID").style.display = "block";
-        document.getElementById("questionDiagramID").innerHTML = "";
-
-        document.getElementById("questionDiagramID").innerHTML += `
-        <div style="                
-            position: absolute;
-            top: 100px;
-            left: 230px;
-        ">
-        ` + a + "</div>";
-
-        document.getElementById("questionDiagramID").innerHTML += `
-        <div style="                
-            position: absolute;
-            top: 130px;
-            left: 610px;
-        ">
-        ` + b + "</div>";
-
-        document.getElementById("questionDiagramID").innerHTML += `
-        <div style="                
-            position: absolute;
-            top: 250px;
-            left: 320px;
-        ">
-        ` + c + "</div>";
-        
-        document.getElementById("questionDiagramID").innerHTML += `
-        <div style="                
-            position: absolute;
-            top: 220px;
-            left: 620px;
-        ">
-        ` + alpha + "</div>";
-       
-        // the triangle
-        document.getElementById("questionDiagramID").innerHTML += `
-            <br /><br />
-            <div style="                
-                width:0;
-                height: 0;
-                border-left: 500px solid transparent;
-                border-right: 200px solid transparent;
-                border-bottom: 200px solid #555;                
-            "></div>
-            <br />
-        `;
-    }
-
-    cosineRuleSide = () => {
-        // because we are using alpha (A) its a2 = b2 + c2 -2bc*cosA
-        let unit = ["km", "m", "cm", "mm"][getRandomNumber(0, 3, 0, 0)];
-        let c = getRandomNumber(1, 20, 0, 0);
-        if (getRandomNumber(1, 2, 0, 0) === 1) {
-            c = getRandomNumber(1, 20, 1, 0);
-        }
-        let b = getRandomNumber(1, 20, 0, 0);
-        if (getRandomNumber(1, 2, 0, 0) === 1) {
-            b = getRandomNumber(1, 20, 1, 0);
-        }
-        let alpha = getRandomNumber(5, 85, 0, 0);
-        let a = (c ** 2) + (b ** 2) - 2 * c * b * Math.cos(alpha * Math.PI / 180);
-        a = Math.sqrt(a);
-        let ans;
-        console.log("a is " + a);
-        console.log("b is " + b);
-        console.log("c is " + c);
-        if (getRandomNumber(1, 2, 0, 0) === 1) {
-            ans = c;
-            a = a.toFixed(2) + unit;
-            c = "x";
-        } else {
-            ans = a;
-            c += unit;
-            a = "x";
-        }        
-        b += unit;
-        alpha += "<sup>0</sup>";
-        let questionText = "Find x";
-        this.question_string = questionText;
-        document.getElementById("questionStringID").innerHTML = questionText;
-        
-        this.drawTriangle(a, b, c, alpha);
-        this.Ans = ans.toFixed(1) + unit;
-        this.mc1 = (ans + getRandomNumber(1, 5, 1, 1)).toFixed(1) + unit;
-        this.mc2 = (ans + getRandomNumber(1, 5, 1, 1)).toFixed(1) + unit;
-        this.mc3 = (ans + getRandomNumber(1, 5, 1, 1)).toFixed(1) + unit;
-        let arr = [this.Ans, this.mc1, this.mc2, this.mc3];        
-        return arr;
-    }
-
-    cosineRuleAngle = () => {
-        // because we are using alpha (A) its a2 = b2 + c2 -2bc*cosA
-        let unit = ["km", "m", "cm", "mm"][getRandomNumber(0, 3, 0, 0)];
-        let c = getRandomNumber(1, 20, 0, 0);
-        if (getRandomNumber(1, 2, 0, 0) === 1) {
-            c = getRandomNumber(1, 20, 1, 0);
-        }
-        let b = getRandomNumber(1, 20, 0, 0);
-        if (getRandomNumber(1, 2, 0, 0) === 1) {
-            b = getRandomNumber(1, 20, 1, 0);
-        }
-        let alpha = getRandomNumber(5, 85, 0, 0);
-        let a = (c ** 2) + (b ** 2) - 2 * c * b * Math.cos(alpha * Math.PI / 180);
-        a = Math.sqrt(a).toFixed(2);
-        console.log("a is " + a);
-        console.log("b is " + b);
-        console.log("c is " + c);
-        a += unit;
-        b += unit;
-        c += unit;
-        let ans = alpha;
-        alpha = "x";
-        let questionText = "Find x";
-        this.question_string = questionText;
-        document.getElementById("questionStringID").innerHTML = questionText;
-        
-        this.drawTriangle(a, b, c, alpha);
-        this.Ans = ans + "<sup>0</sup>";
-        this.mc1 = (ans + getRandomNumber(1, 5, 0, 1)) + "<sup>0</sup>";
-        this.mc2 = (ans + getRandomNumber(1, 5, 0, 1)) + "<sup>0</sup>";
-        this.mc3 = (ans + getRandomNumber(1, 5, 0, 1)) + "<sup>0</sup>";
-        let arr = [this.Ans, this.mc1, this.mc2, this.mc3];        
-        return arr;
     }
 
     writeFormula = () => {

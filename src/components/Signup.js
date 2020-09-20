@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import firebase from './firebase';
 
@@ -8,74 +8,89 @@ const Signup = () => {
     const [password2, setPassword2] = useState("");
     const history = useHistory();
     
+    useEffect(() => {        
+        checkLoginStatus();
+    });
+
+    async function checkLoginStatus() {
+        let user_id = await firebase.getCurrentUserID();
+        if (user_id !== null) {
+            history.push("/live");
+        }     
+    }
+
     async function signUpUser(e) {
         e.preventDefault();
-        // check that fields are not blank
         document.getElementById("errorID").innerHTML = "";
-        let pass = 1;
-        if (email === "") {
-            document.getElementById("errorID").innerHTML += "<br> email cannot be blank";
-            pass = 0;
+
+        let pass = 0;
+        if (email.length <= 100) {
+            if (password.length <= 100) {
+                if (email !== "") {
+                    if (password !== "" && password2 !== "") {
+                        if (password === password2) {
+                            if (password.length >= 6) {
+                                if (email.includes("@")) {
+                                    if (email.length > 3) { // x@x
+                                        pass = 1;
+                                    } else {
+                                        document.getElementById("errorID").innerHTML += "<br> " + email + " is an invalid email";    
+                                    }
+                                } else {
+                                    document.getElementById("errorID").innerHTML += "<br> " + email + " is an invalid email";
+                                }
+                            } else {
+                                document.getElementById("errorID").innerHTML += "<br> passwords must be > 6 characters";
+                                setPassword('');
+                                setPassword2('');    
+                            }
+                        } else {
+                            document.getElementById("errorID").innerHTML = "<br> passwords dont match";
+                            setPassword('');
+                            setPassword2('');
+                        }
+                    } else {
+                        document.getElementById("errorID").innerHTML = "<br> password cannot be blank";
+                        setPassword('');
+                        setPassword2('');
+                    }
+                } else {
+                    document.getElementById("errorID").innerHTML = "<br> email cannot be blank";
+                    setEmail('');
+                }
+            } else {
+                document.getElementById("errorID").innerHTML = "ERR 411: invalid email";
+                setPassword('');
+                setPassword2('');
+            }
+        } else {
+            document.getElementById("errorID").innerHTML = "ERR 410: invalid email";
             setEmail('');
-        }
-        if (password === "" || password2 === "") {
-            document.getElementById("errorID").innerHTML += "<br> password cannot be blank";
-            pass = 0;
+            setPassword('');
+            setPassword2('');
         }
 
-        // check that passwords match
-        if (password !== password2) {
-            document.getElementById("errorID").innerHTML += "<br> passwords dont match";
-            pass = 0;
-        }
-
-        // check that passwords > 6 characters
-        if (password.length < 6) {
-            document.getElementById("errorID").innerHTML += "<br> passwords must be > 6 characters";
-            pass = 0;
-        }
-
-        // check that email is valid
-        if (!email.includes("@")) {
-            document.getElementById("errorID").innerHTML += "<br> " + email + " is an invalid email";
-            pass = 0;
-        }
-
+        
         // check if we already have that email
         let user_id = 0;
-        await firebase.firestore().collection('math-user-db').get().then((snapshot) => {
-            snapshot.docs.forEach(doc => {
-                //console.log("email is " + doc.data().email);
-                user_id += 1;
-                if (email === doc.data().email) {
-                    document.getElementById("errorID").innerHTML += "<br> we already have an account for " + email;
-                    pass = 0;
-                }
-            });
-        });
-
-        user_id += 1;
+        let db = "users-db";
+        //let x = await firebase.database().ref(db).once('value');
+        let x = await firebase.getDataBase(db);
+        for (let k in x.val()) {
+            if (email === x.val()[k].email) {
+                document.getElementById("errorID").innerHTML += "<br> we already have an account for " + email;
+                pass = 0;
+            }            
+        }
         
         if (pass === 1) {
-            // add to database
-            firebase.firestore().collection('math-user-db').add({email, password, user_id}).then(() => {
-                setEmail('')
-                setPassword('')
-            });
-
-            // authenticate user
-            let errorCode, errorMessage;
-            firebase.auth().createUserWithEmailAndPassword(email, password).then(cred => {
-                console.log(cred.user);
-                history.push("/");
-            }).catch(function(error) {
-                errorCode = error.code;
-                errorMessage = error.message;
-            });
-            if (errorCode) {
-                document.getElementById("errorID").innerHTML = errorCode;
-                document.getElementById("errorID").innerHTML += "<br>" + errorMessage;
+            if (x.val() != null) {
+                user_id = Object.keys(x.val()).length;
             }
+            user_id += 1;
+            await firebase.registerUser(db, email, password, user_id);
+            history.push("/");
+            window.location.reload();
         }
         
         setPassword('');

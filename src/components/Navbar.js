@@ -1,38 +1,39 @@
-import React, {useEffect, useRef} from 'react';
-import { Link } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import firebase from './firebase';
 
 const Navbar = () => {
-  
-  const isMountedRef = useRef(null);
+  const history = useHistory();  
+  //const isMountedRef = useRef(null);
   useEffect(() => {
-    isMountedRef.current = true;
-    
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        if (isMountedRef.current) {
-          document.getElementById("usernameID").style.display = "block";
-          document.getElementById("usernameID").innerHTML = user.email;
-          document.querySelectorAll(".loginClass")[0].style.display = "none";
-          document.getElementById("signOutBtnID").style.display = "block";
-        }
-      } else {
-        if (isMountedRef.current) {
-          document.getElementById("usernameID").style.display = "none";
-          document.getElementById("usernameID").innerHTML = "";
-          document.querySelectorAll(".loginClass")[0].style.display = "block";
-          document.getElementById("signOutBtnID").style.display = "none";
-        }
-      }
-    });
-    return () => isMountedRef.current = false;
-    
-  }, []);
+    checkIfUserIsLoggedIn();
+  }); 
+
+  async function checkIfUserIsLoggedIn() {
+    let user_id = await firebase.getCurrentUserID();
+    let user_name = await firebase.getCurrentUsername();
+    if (user_id !== null) {
+      console.log("user id is " + user_id);
+      document.getElementById("usernameID").style.display = "block";
+      document.getElementById("usernameID").innerHTML = user_name;//user.email;
+      document.querySelectorAll(".loginClass")[0].style.display = "none";
+      document.getElementById("signOutBtnID").style.display = "block";
+    } else {
+      console.log("no one is logged in");
+      document.getElementById("usernameID").style.display = "none";
+      document.getElementById("usernameID").innerHTML = "";
+      document.querySelectorAll(".loginClass")[0].style.display = "block";
+      document.getElementById("signOutBtnID").style.display = "none";      
+    }
+  }
   
   async function signOut() {        
-      await firebase.auth().signOut().then(() => {
-          console.log("user is signed out");
-      });
+      console.log("loggin out...");
+      await firebase.logUserOut();
+      history.push("/live");
+      window.location.reload();
+      console.log("logged out");
+
   }
 
   /*
@@ -78,10 +79,10 @@ const Navbar = () => {
   return (
     <div className="Navbar">
       <div className="NavLeft">        
-        <Link className="Navbar_link" to="/">Home</Link>
-        <Link className="Navbar_link" to="/chapters">Chapter</Link>
-        <Link className="Navbar_link" to="/about">About Us</Link>
+        <Link className="Navbar_link" to="/">Home2</Link>
+        <Link className="Navbar_link" to="/chapters">Chapters</Link>
         <Link className="Navbar_link" to="/dashboard">Dashboard</Link>        
+        <Link className="Navbar_link" to="/hscgen">HSC Gen</Link>   
         {/*
         <div className="dropdown">
           <p className="dropbtn">Music</p>          

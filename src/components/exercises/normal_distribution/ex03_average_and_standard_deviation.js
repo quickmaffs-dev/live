@@ -1,6 +1,7 @@
 import React from 'react';
 import {getRandomNumber, printTest, reset, answerType, checkUserInputAns} from '../MathFunctions';
 import Workspace from '../../Workspace';
+import {average, standardDeviation} from './normal_distribution_exercises';
 
 class ex03_average_and_standard_deviation extends React.Component {
     constructor(props) {
@@ -31,62 +32,23 @@ class ex03_average_and_standard_deviation extends React.Component {
         this.numQuestions += 1;
         let numQuestionTypes = 2;
         let chooseQuestion = getRandomNumber(1, numQuestionTypes, 0, 0);
-        let correctAns;
+        let correctAns, result;
         if (chooseQuestion === 1) {
-            correctAns = this.average();
+            result = average();
         } else if (chooseQuestion === 2) {
-            correctAns = this.standardDeviation();
+            result = standardDeviation();
         } else {
             printTest("ERROR : chooseQuestion() = " + chooseQuestion);
         }
         
+        this.question_string = result[0];
+        document.getElementById("questionStringID").innerHTML = result[0];
+        correctAns = result[1];
         
         document.getElementById("userInputBtnID").onclick = () => {checkUserInputAns(correctAns, document.getElementById("userInputStringID").value, this.question_string, "normal distribution ex03")};
         
         this.writeFormula();
         this.writeExample();
-    }
-
-    average = () => {
-        let scores = new Array(getRandomNumber(5, 10, 0, 0));
-        let questionText = "What is the average of ";
-        let sum = 0;
-        for (let i = 0; i < scores.length; i++) {
-            scores[i] = getRandomNumber(1, 30, 1, 0);
-            if (i < scores.length - 1) {
-                questionText += scores[i] + ", ";
-            }
-            sum += scores[i];
-        }
-        questionText += " and " + scores[scores.length - 1] + " to 2 decimal places?";        
-        this.question_string = questionText;
-        document.getElementById("questionStringID").innerHTML = questionText;
-        let ans = (sum / scores.length).toFixed(2);
-        return ans;
-    }
-
-    standardDeviation = () => {
-        let scores = new Array(getRandomNumber(5, 10, 0, 0));
-        let questionText = "What is the standard deviation of ";
-        let sum = 0;
-        for (let i = 0; i < scores.length; i++) {
-            scores[i] = getRandomNumber(1, 30, 1, 0);
-            if (i < scores.length - 1) {
-                questionText += scores[i] + ", ";
-            }
-            sum += scores[i];
-        }
-        questionText += " and " + scores[scores.length - 1] + " to 3 decimal places?";        
-        this.question_string = questionText;
-        document.getElementById("questionStringID").innerHTML = questionText;
-        console.log(scores);
-        let mean = (sum / scores.length).toFixed(2);
-        let s = 0;
-        for (let i = 0; i < scores.length; i++) {
-            s += (scores[i] - mean) ** 2;
-        }
-        let ans = Math.sqrt(s / scores.length).toFixed(3);
-        return ans;
     }
 
     writeFormula = () => {

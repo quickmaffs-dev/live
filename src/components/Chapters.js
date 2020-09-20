@@ -23,6 +23,40 @@ function Chapters() {
               <li><Link to="/exercises/algebra/ex05_fractions?yr=%9%">Ex 02 - Fractions</Link></li>
               <li><Link to="/exercises/algebra/ex06_decimals?yr=%9%">Ex 03 - Decimals</Link></li>
               <li><Link to="/exercises/algebra/ex07_converting_fractions_decimals?yr=%9%">Ex 04 - Converting fractions and decimals</Link></li>
+
+              <h4>Chapter 8: Earning Money</h4>
+              <li><Link to="/exercises/earning_money/ex01_wages_and_salaries?yr=%9%">Ex 01 - Wages and salaries</Link></li>
+              <li><Link to="/exercises/earning_money/ex02_overtime?yr=%9%">Ex 02 - Overtime</Link></li>
+              <li><Link to="/exercises/earning_money/ex03_commission_piecework_and_leave_loading?yr=%9%">Ex 03 - Commission, piecework and leave loading</Link></li>
+              <li><Link to="/exercises/earning_money/ex04_income_tax?yr=%9%">Ex 04 - Income tax</Link></li>
+              <li><Link to="/exercises/earning_money/ex05_payg_tax?yr=%9%">Ex 05 - PAYG tax</Link></li>
+
+              <h4>Chapter 9: Investigating Data</h4>
+              <li><Link to="/exercises/investigating_data/ex01_averages_and_range?yr=%9%">Ex 01 - Averages and Range</Link></li>
+
+              <h4>Chapter 10: Surface Area and Volume</h4>
+              <li><Link to="/exercises/rates_and_ratios/ex01_converting_rates?yr=%9%">Ex 01 - Converting units</Link></li>
+              <li><Link to="/exercises/area_perimeter_and_volume/ex01_perimeter?yr=%9%">Ex 02 - Perimeter</Link></li>
+              <li><Link to="/exercises/area_perimeter_and_volume/ex02_area?yr=%9%">Ex 03 - Area</Link></li>
+              
+              <h4>Chapter 11: Coordinate Geometry</h4>
+              <li><Link to="/exercises/coordinate_geometry/ex01_intervals?yr=%9%">Ex 01 - Distance, midpoints and gradient</Link></li>
+              
+          </div>
+
+          <div className="yearSection">
+              <hr></hr>
+              <h3>Year 10</h3>
+              <h4>Chapter 3: Coordinate Geometry</h4>
+              <li><Link to="/exercises/coordinate_geometry/ex01_intervals?yr=%10%">Ex 01 - Intervals</Link></li>
+              <li><Link to="/exercises/coordinate_geometry/ex02_inclination_angle?yr=%10%">Ex 02 - Inclination Angle</Link></li>
+              <li><Link to="/exercises/coordinate_geometry/ex03_parallel_perpendicular_lines?yr=%10%">Ex 03 - Parallel and perpendicular lines</Link></li>
+              <li><Link to="/exercises/simultaneous_equations/ex01_identify_graphs?yr=%10%">Ex 04 - Identify Graphs</Link></li>
+              
+
+              <h4>Chapter 15: Circle Geometry</h4>
+              <li><Link to="/exercises/circle_geometry/ex01_parts_of_circle?yr=%10%">Ex 01 - Parts of a circle</Link></li>
+              <li><Link to="/exercises/circle_geometry/ex02_angle_properties?yr=%10%">Ex 02 - Angle Properties</Link></li>
           </div>
 
           <div className="yearSection">

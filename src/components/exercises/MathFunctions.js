@@ -73,7 +73,7 @@ export function getPronumeral() {
     return pronum;
 }
 
-export function answerType(ansType) {
+export function answerType(ansType) {    
     if (ansType === 1) {
         document.getElementById("answerType01").style.display = "block";
     } else if (ansType === 2) {
@@ -87,8 +87,9 @@ export function reset() {
     document.getElementById("questionStringID").innerHTML = "";
     document.getElementById("resultStringID").innerHTML = "";
     document.getElementById("answerType01").style.display = "none";
+    document.getElementById("answerType02").style.display = "none";
+    document.getElementById("answerType03").style.display = "none";
     
-    document.getElementById("startSessionBtnID").style.display = "none";
     document.getElementById("nextQuesBtnID").style.display = "none";
     document.querySelectorAll(".questionBody")[0].style.display = "block";
     
@@ -97,6 +98,7 @@ export function reset() {
     document.getElementById("questionDiagramID").style.display = "none";
     document.getElementById("questionDiagramID").style.display = "none";
     document.getElementById("canvasID").style.display = "none";    
+    document.getElementById("questionImgID").style.display = "none";
     setAnsBtns(false);
 }
 
@@ -104,14 +106,14 @@ export function reset() {
 export async function checkAns(correctAns, userAns, questionString, chapter) {
     let result, resultMsg = "";
     correctAns = correctAns.toString();
-    userAns = userAns.toString();    
+    userAns = userAns.toString();
     if (userAns !== "") {
         if (userAns === correctAns) {
             resultMsg = userAns + " THAT IS CORRECT";
             resultFunc(resultMsg, "Correct");
             result = 1;
         } else {
-            resultMsg = "UNLUGGY, " + userAns + " is incorrect<br>The correct answer is " + correctAns;
+            resultMsg = userAns + " is incorrect<br>The correct answer is " + correctAns;
             resultFunc(resultMsg, "Incorrect");
             result = 0;
         }
@@ -121,56 +123,35 @@ export async function checkAns(correctAns, userAns, questionString, chapter) {
 
 
     let email;
-    let user_id = 0;
-    let question_id = 0;
-    await firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            email = user.email;
-        }
-    });
-    if (email) {
-        await firebase.firestore().collection('math-user-db').where("email", "==", email).get().then((snapshot) => {
-            snapshot.docs.forEach(doc => {
-                user_id = doc.data().user_id;
-            });
-        }).catch(function(error) {
-            if (error.code === "resource-exhausted") {
-                console.log("the database has exceeded its calls, please contact the admin or try again later");
-            }
-        });
-        await firebase.firestore().collection('math-question-new-db').get().then((snapshot) => {
-            question_id = snapshot.size;
-        });
-        question_id += 1;
-    }
-    
-    
+    let user_id = await firebase.getCurrentUserID();
+    if (user_id !== null) {
+        email = await firebase.getCurrentUsername();
+    }    
 
     if (email) {
-        let correct_answer = correctAns;
-        let user_answer = userAns;
-        /*
-        console.log("question id is " + question_id);
-        console.log("user id is " + user_id);
-        console.log("correct_answer is " + correct_answer);
-        console.log("user_answer is " + user_answer);
-        console.log("result is " + result);
-        console.log("questionString is " + questionString);
-        console.log("chapter is " + chapter);
-        */
-        await firebase.firestore().collection('math-question-new-db').add({
-            question_id,
-            user_id,
-            correct_answer,
-            user_answer,
-            result,
-            questionString, 
-            chapter
-        }).catch(function(error) {
-            alert(error.code);
-        }).then(() => {});
+        let db = "question-db";
+        let post = [questionString, userAns, correctAns, result, user_id, chapter];
+        await firebase.addQToDb(db, post);
+    }
+
+    if (1 === 2) locallyStoreData(correctAns, userAns, questionString, chapter, result);
+}
+
+function locallyStoreData(correctAns, userAns, questionString, chapter, result) {
+    if (typeof(Storage) !== "undefined") {
+        let q_id = 1;
+        for (let i = 0; i < localStorage.length; i++) {
+            if (localStorage.key(i).includes("QuickMaffs")) {
+                q_id += 1;
+            }
+        }
+        let keyObj = { 'question_id': q_id, 'chapter': chapter, 'questionString': questionString, 'correct_answer' : correctAns, 'user_answer' : userAns, 'result' : result };
+        let key = 'QuickMaffs_' + q_id;
+        console.log(keyObj + key);
+        //localStorage.setItem(key, JSON.stringify(keyObj));
+    } else {
+        console.log("Browser does not support Web Storage");
     }    
-    
 }
 
 
@@ -182,14 +163,16 @@ export function checkUserInputAns(correctAns, userAns, qString, chapter) {
 
 
 export function resultFunc(output, result) {
-    document.getElementById("resultStringID").innerHTML = output;        
+    document.getElementById("resultStringID").innerHTML = output;
+    let secretMsg = result;
+    document.getElementById("secretsID").innerHTML = secretMsg;
     if (result === "Correct") {
         // increment scores
         numCorrect += 1;
     } else {
         // decrement lives            
     }
-    updateScores();    
+    updateScores();
 }
 
 export function numberWithCommas(x) {
@@ -288,6 +271,86 @@ export function simplifyRatio(a, b) {
     return x;
 }
 
+export function getYearUrl() {
+    let url = window.location.search;
+    let urlSplit = url.split("%");
+    let yr = "";
+    if (urlSplit[1] !== undefined) {
+        yr = urlSplit[1];
+    }
+    return yr;
+}
+
+//export function setupCanvas(height, width) {
+export function setupCanvas() {
+    let canvas = document.getElementById("canvasID");    
+    canvas.style.backgroundColor = "white";
+    canvas.style.display = "block";
+    canvas.style.marginLeft = "auto";
+    canvas.style.marginRight = "auto";
+    //canvas.height = height;
+    //canvas.width = width;
+    //let ctx = canvas.getContext("2d");
+    //return ctx;
+    return canvas;
+}
+
+export function solveEquation(eqn) {
+    let op;        
+    for(let operation = 1; operation <= 4; operation++) {
+        for (let i = 1; i < eqn.length; i+=2) {
+            if (eqn[i] === operation) {
+                op = i;
+                i = eqn.length;
+                operation = 4;
+            }
+        }
+    }
+
+    let newEqn = new Array(eqn.length - 2);
+    let ans;
+    if (eqn[op] === 1) {
+        ans = eqn[op-1] / eqn[op+1];
+    } else if (eqn[op] === 2) {
+        ans = eqn[op-1] * eqn[op+1];
+    } else if (eqn[op] === 3) {
+        ans = eqn[op-1] + eqn[op+1];
+    } else {
+        ans = eqn[op-1] - eqn[op+1];
+    }
+
+    let j = 0;
+    for (let i = 0; i < newEqn.length; i++) {
+        if (i !== op - 1) {
+            newEqn[i] = eqn[j]
+        } else {
+            newEqn[i] = ans;
+            j += 2;
+        }
+        j += 1;
+
+    }        
+    
+    if (newEqn.length > 1) {
+        return solveEquation(newEqn);
+    }
+    return newEqn[0];   
+}
+
+export function mcBtn(i, correctAns, question_string, topic) {
+    document.querySelectorAll(".mcAnsBtn")[i].onclick = () => {checkAns(correctAns, document.querySelectorAll(".mcAnsBtn")[i].innerHTML, question_string, topic)};
+}
+
+export function getScores() {
+    let scores = [];
+    let n = getRandomNumber(6, 10, 0, 0);
+    let dp = getRandomNumber(0, 1, 0, 0);
+    for (let i = 0; i < n; i++) {
+        scores[i] = getRandomNumber(1, 20, dp, 0);
+    }
+    return scores;
+}
+
 function getPrimes(primes, max) {
 	var oldPrimes = primes;
 	for (let i = primes[primes.length-1] + 1; i <= max; i++) {
@@ -317,10 +380,9 @@ function updateScores() {
 }
 
 function setAnsBtns(x) {
-    document.getElementById("mcBtn1ID").disabled = x;
-    document.getElementById("mcBtn2ID").disabled = x;
-    document.getElementById("mcBtn3ID").disabled = x;
-    document.getElementById("mcBtn4ID").disabled = x;
+    for (let i = 0; i < document.querySelectorAll(".mcAnsBtn").length; i++) {
+        document.querySelectorAll(".mcAnsBtn")[i].disabled = x;
+    }
     
     document.getElementById("trueBtnID").disabled = x;
     document.getElementById("falseBtnID").disabled = x;

@@ -1,10 +1,9 @@
-.workspace {
+.workspace, .workspaceHsc {
     text-align: center;
 }
 
-.workspace h1, h3, p {
+.workspace h1, h3, p, .workspaceHsc h1, .workspaceHsc h3, .workspaceHsc p {
     text-align: left;
-
 }
 
 #startSessionBtnID {
@@ -38,8 +37,12 @@
     font-family: 'Orienta', 'Arial', sans-serif;
 }
 
+.questionBody button:hover {
+    cursor: pointer;
+}
+
 .questionBody button, #userInputStringID {
-    width: 23%;
+    min-width: 23%;
     height: 50px;
     font-size: 18px;       
 }
@@ -49,15 +52,12 @@
     width: 300px;
 }
 
-#questionStringID {
-    
-}
 
 #questionStringID table {
     border-collapse: collapse;
 }
 
-#questionStringID td {
+#questionStringID th, #questionStringID td {
     border: solid 1px;
     text-align: center;
     width: 70px;
@@ -65,7 +65,6 @@
 
 #questionStringID, .multipleChoice {
     /*font-family: CMSY10, CMEX10, Symbol, Times;*/
-    font-family: "Times New Roman", Courier, Garamond, serif;
     font-family: 'Orienta', 'Arial', sans-serif;
 }
 
@@ -115,5 +114,34 @@
     color: white;
 }
 
-.resultInfo {
+.workspaceHsc {
+    background-color: white;
+    padding: 20px;
+    font-family: "Times New Roman", Times, serif;
+    height: 100%;
+}
+
+.workspaceHsc #questionStringID, .workspaceHsc .mcAnsBtn {
+    font-family: "Times New Roman", Times, serif;
+}
+
+.workspaceHsc .questionBody {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.workspaceHsc .mcAnsBtn {        
+    display: block;
+    background:none;
+    padding-left: 5px;
+    padding-right: 20px;
+    border: 1px solid white;
+    height: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
+.workspaceHsc .mcAnsBtn:hover {
+    border: 1px solid blue;
 }

@@ -1,6 +1,8 @@
 import React from 'react';
-import {getRandomNumber, printTest, reset, answerType, checkAns, shuffle, simplifyRatio, dpCheck } from '../MathFunctions';
+import {getRandomNumber, printTest, reset, answerType, checkAns, shuffle } from '../MathFunctions';
 import Workspace from '../../Workspace';
+
+import {convertDecimalToFraction, convertFractionToDecimal} from './algebra_exercises';
 
 class ex07_converting_fractions_decimals extends React.Component {
     constructor(props) {
@@ -25,23 +27,25 @@ class ex07_converting_fractions_decimals extends React.Component {
     }
     
     makeQuestion = () => { 
+        document.getElementById("startSessionBtnID").style.display = "none";
         reset();       
         answerType(1); // multiplechoice === 1
         this.numQuestions += 1;
         let numQuestionTypes = 2;
         let chooseQuestion = getRandomNumber(1, numQuestionTypes, 0, 0);
-        let mcOptions;
-        chooseQuestion = numQuestionTypes;
+        let correctAns, result;
         if (chooseQuestion === 1) {
-            mcOptions = this.convertDecimalToFraction();
+            result = convertDecimalToFraction();
         } else if (chooseQuestion === 2) {
-            mcOptions = this.convertFractionToDecimal();
+            result = convertFractionToDecimal();
         } else {
             printTest("ERROR : chooseQuestion() = " + chooseQuestion);
         }
         
-        
-        let correctAns = mcOptions[0];
+        this.question_string = result[0];
+        document.getElementById("questionStringID").innerHTML = result[0];
+        let mcOptions = result.slice(1, result.length);        
+        correctAns = mcOptions[0];
         shuffle(mcOptions);
         for (let i = 0; i < document.querySelectorAll(".mcAnsBtn").length; i++) {                  
             document.querySelectorAll(".mcAnsBtn")[i].onclick = () => {checkAns(correctAns, document.querySelectorAll(".mcAnsBtn")[i].innerHTML, this.question_string, "algebra ex05")};
@@ -50,75 +54,6 @@ class ex07_converting_fractions_decimals extends React.Component {
         this.writeFormula();
         this.writeExample();
 
-    }
-
-    convertDecimalToFraction = () => {        
-        let x = getRandomNumber(1, 1000, 0, 0);
-        x /= 1000;
-        x = dpCheck(x);
-        let frac = simplifyRatio(1000 * x, 1000);
-
-        let a = frac[0];
-        let b = frac[1];
-        let questionText = "Convert " + x + " to a fraction";
-        this.question_string = questionText;
-        document.getElementById("questionStringID").innerHTML = questionText;
-        this.Ans = `
-            <span class="fraction">
-                <span>` + a + `</span>
-                <span class="fraction-line">------</span>
-                <span>` + b + `</span>
-            </span>
-        `;
-        this.mc1 = `
-            <span class="fraction">
-                <span>` + (a + getRandomNumber(1, a-1, 0, 1)) + `</span>
-                <span class="fraction-line">------</span>
-                <span>` + b + `</span>
-            </span>
-        `;
-        this.mc2 = `
-            <span class="fraction">
-                <span>` + a + `</span>
-                <span class="fraction-line">------</span>
-                <span>` + (b + getRandomNumber(1, b-1, 0, 1)) + `</span>
-            </span>
-        `;
-        this.mc3 = `
-            <span class="fraction">
-                <span>` + (a + getRandomNumber(1, a-1, 0, 1)) + `</span>
-                <span class="fraction-line">------</span>
-                <span>` + (b + getRandomNumber(1, b-1, 0, 1)) + `</span>
-            </span>
-        `;
-        let arr = [this.Ans, this.mc1, this.mc2, this.mc3];
-        return arr;
-    }
-    convertFractionToDecimal = () => {
-        let x = getRandomNumber(1, 1000, 0, 0);
-        x /= 1000;
-        x = dpCheck(x);
-        let frac = simplifyRatio(1000 * x, 1000);
-
-        let a = frac[0];
-        let b = frac[1];
-        let questionText = `Convert
-            <span class="fraction">
-                <span>` + a + `</span>
-                <span class="fraction-line">------</span>
-                <span>` + b + `</span>
-            </span>
-            to a decimal
-        `;
-        this.question_string = questionText;
-        document.getElementById("questionStringID").innerHTML = questionText;
-        this.Ans = x;
-        this.mc1 = dpCheck(parseFloat(x) + getRandomNumber(0, 1, 3, 0));
-        this.mc2 = dpCheck(parseFloat(x) + getRandomNumber(0, 1, 3, 0));
-        this.mc3 = dpCheck(parseFloat(x) + getRandomNumber(0, 1, 3, 0));
-
-        let arr = [this.Ans, this.mc1, this.mc2, this.mc3];
-        return arr;
     }
 
     writeFormula = () => {

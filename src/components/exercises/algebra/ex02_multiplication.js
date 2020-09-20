@@ -2,6 +2,7 @@
 import React from 'react';
 import {getRandomNumber, printTest, reset, answerType, checkUserInputAns} from '../MathFunctions';
 import Workspace from '../../Workspace';
+import {multiplicationAndDivision} from './algebra_exercises';
 
 class ex02_multiplication extends React.Component {
     constructor(props) {
@@ -25,35 +26,29 @@ class ex02_multiplication extends React.Component {
     }
     
     makeQuestion = () => { 
+        document.getElementById("startSessionBtnID").style.display = "none";
         reset();       
         answerType(3); // user input string == 3
         
         this.numQuestions += 1;
         let numQuestionTypes = 1;
         let chooseQuestion = getRandomNumber(1, numQuestionTypes, 0, 0);
-        let correctAns;
+        let correctAns, result;
         if (chooseQuestion === 1) {
-            correctAns = this.additionAndSubtraction();
+            result = multiplicationAndDivision();
         } else {
             printTest("ERROR : chooseQuestion() = " + chooseQuestion);
         }
+        
+        this.question_string = result[0];
+        document.getElementById("questionStringID").innerHTML = result[0];
+        correctAns = result[1];
 
         document.getElementById("userInputBtnID").onclick = () => {checkUserInputAns(correctAns, document.getElementById("userInputStringID").value, this.question_string, "algebra ex02")};
         
         this.writeFormula();
         this.writeExample();
 
-    }
-
-    additionAndSubtraction = () => {
-        let x = getRandomNumber(1, 20, 0, 1);
-        let y = getRandomNumber(1, 20, 0, 1);
-        let ans = x * y;
-        let questionText = "Solve " + x + " x " + y;
-        this.question_string = questionText;
-        document.getElementById("questionStringID").innerHTML = questionText;
-        ;
-        return ans;
     }
 
     writeFormula = () => {
