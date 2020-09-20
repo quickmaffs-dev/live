@@ -79,7 +79,7 @@ const Navbar = () => {
   return (
     <div className="Navbar">
       <div className="NavLeft">        
-        <Link className="Navbar_link" to="/">Home2</Link>
+        <Link className="Navbar_link" to="/">Home</Link>
         <Link className="Navbar_link" to="/chapters">Chapters</Link>
         <Link className="Navbar_link" to="/dashboard">Dashboard</Link>        
         <Link className="Navbar_link" to="/hscgen">HSC Gen</Link>   

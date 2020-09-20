@@ -56,6 +56,9 @@ const Login = () => {
                     if (password === x.val()[k].password) {
                         console.log("all g")
                         await firebase.loginRealTime(email, password);
+                        console.log("working");
+                        history.push("/live");
+                        window.location.reload();
                     } else {
                         document.getElementById("errorID").innerHTML = "wrong password";
                         setPassword('');
