@@ -1,31 +1,51 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "27138d8a6b28c2f11e08fe56915a390b",
+    "revision": "57832b4c0b9b314e2c631f6df9f23bac",
     "url": "/live/index.html"
   },
   {
-    "revision": "a1c4b4718d3ca11e2487",
-    "url": "/live/static/css/main.0a7a95c0.chunk.css"
+    "revision": "fcc6a4e5ac7d3d57583e",
+    "url": "/live/static/css/main.296e3741.chunk.css"
   },
   {
-    "revision": "12064ab363ddda5f765d",
-    "url": "/live/static/js/2.c92bc783.chunk.js"
+    "revision": "3b40c3324b2019f14239",
+    "url": "/live/static/js/2.7371e6ef.chunk.js"
   },
   {
     "revision": "d0b13a04dd0dc4c851ad16fad1cc6f51",
-    "url": "/live/static/js/2.c92bc783.chunk.js.LICENSE.txt"
+    "url": "/live/static/js/2.7371e6ef.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "a1c4b4718d3ca11e2487",
-    "url": "/live/static/js/main.0900084e.chunk.js"
+    "revision": "fcc6a4e5ac7d3d57583e",
+    "url": "/live/static/js/main.cf7b2297.chunk.js"
   },
   {
     "revision": "7a537931fe215765fa67",
     "url": "/live/static/js/runtime-main.57a36af5.js"
   },
   {
-    "revision": "a33a624f6a2b4c2baa60dc5312d570dc",
-    "url": "/live/static/media/icon.a33a624f.png"
+    "revision": "731b5661d98269a51c2e7a4ce414afeb",
+    "url": "/live/static/media/avatar1.731b5661.jpg"
+  },
+  {
+    "revision": "3fefa0914832f8e06d511253ee7c2a62",
+    "url": "/live/static/media/avatar2.3fefa091.jpg"
+  },
+  {
+    "revision": "3fdcfa362a6578dad919be29cd96dc07",
+    "url": "/live/static/media/avatar3.3fdcfa36.jpg"
+  },
+  {
+    "revision": "b75daec8e339b5f57091337d1bb1bf83",
+    "url": "/live/static/media/avatar4.b75daec8.jpg"
+  },
+  {
+    "revision": "5fdbf9afabd2faa92c6ddd3d656b6dd4",
+    "url": "/live/static/media/avatar5.5fdbf9af.jpg"
+  },
+  {
+    "revision": "7da7451cdf4d23b768079c7466b16188",
+    "url": "/live/static/media/avatar6.7da7451c.jpg"
   },
   {
     "revision": "b1f271474f5de2bb6c0109a4fb10856a",
@@ -58,6 +78,18 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "efba7569af4b63173140b0a68232f2a5",
     "url": "/live/static/media/math_std_2019_q6_blood_pressure.efba7569.png"
+  },
+  {
+    "revision": "3ee5e5e5cdb9159f7c495816734898b5",
+    "url": "/live/static/media/shirt1.3ee5e5e5.png"
+  },
+  {
+    "revision": "57f778eb2d735d154ca79b85b562a145",
+    "url": "/live/static/media/shirt2.57f778eb.png"
+  },
+  {
+    "revision": "458ee4abca8481ccf58196d4c7230906",
+    "url": "/live/static/media/shirt3.458ee4ab.png"
   },
   {
     "revision": "46a9d6a54ae717f711025a40917177b3",
