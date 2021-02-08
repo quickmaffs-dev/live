@@ -1,3 +1,50 @@
+.multiplayerOptions table {
+  margin-left: auto;
+  margin-right: auto;  
+}
+
+.multiplayerOptions td {
+  text-align: center;
+  width: 600px;
+  border: none;
+}
+
+.battleImgClass {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 320px;
+  height: 200px;
+}
+
+#battleImg, #battleImgInvert {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+}
+
+#battleImgInvert {
+  filter: invert(1);
+  transition: all 800ms;
+  -webkit-clip-path: polygon(85% 0, 95% 0, 80% 100%, 70% 100%);
+  clip-path: polygon(85% 0, 95% 0, 80% 100%, 70% 100%);
+  clip-path: polygon(70% 0, 80% 0, 100% 50%, 80% 100%, 70% 100%, 90% 50%);
+  
+}
+
+#battleImg:hover + #battleImgInvert, #battleImgInvert:hover  {
+  -webkit-clip-path: polygon(15% 0, 25% 0, 10% 100%, 0% 100%);
+  clip-path: polygon(15% 0, 25% 0, 10% 100%, 0% 100%);
+  clip-path: polygon(0 0, 10% 0, 20% 50%, 10% 100%, 0 100%, 10% 50%);
+  cursor: pointer;  
+}
+
+#battleImg:hover {
+  cursor: pointer;  
+}
+
 .battleWorkspace {
     width: 100%;
 }
@@ -10,7 +57,7 @@
     width: 300px;
 }
 
-#beginBattleBtnID {
+#beginBattleBtnID, #anotherBattleBtnID {
     width: 20%;
     height: 50px;
     background-color: #00B6FF;
@@ -29,8 +76,9 @@
     border: solid #727272 1px;
     background-color: #DEDEDE;
     padding: 5px;
-    width: 500px;
+    width: 300px;
     position: relative;
+    max-width: 35%;
 }
 
 .findOpponent {
@@ -38,7 +86,8 @@
     padding: 5px;
     position: relative;
     overflow: hidden;
-    width: 500px;
+    width: 300px;
+    max-width: 35%;
     text-decoration: none;
   }
   
@@ -93,12 +142,21 @@
     border: solid black 1px;
     position: relative;
     transition: all 2s ease 0s;
-    top: 0; /* start out at position 0 */
-    width: 130px;
-    height: 60px;
+    top: 0; /* start out at position 0 */    
+    width: 240px;
+    height: 110px;
     margin: 0;
     background-color: white;
 }
+
+.scoresList .playerImg {
+  width: 100px;
+  height: 100px;
+  left: 5px;
+  top: 5px;
+  position: absolute;
+}
+
 
 .scoresList #userPlr {
     /*display: inline-block;*/ /* horizontal */
@@ -111,7 +169,7 @@
     padding: 0;
     margin: 0;
     top: 10px;
-    left: 10px;
+    right: 10px;
 }
 
 .scoresList .player .scoresListScore {
@@ -126,8 +184,9 @@
 .questionSpace {
     position: absolute;
     top: 60px;
-    left: 150px;
+    left: 300px;
 }
+
 
 #showResultsBtnID {
     border-radius: 5px;
@@ -143,4 +202,139 @@
 #showResultsBtnID:hover {
     background-color: #001E3C;
     color: white;
+}
+
+
+/* waiting room animation */
+.waitingRoom {
+    position: relative;
+    display: inline-block;
+}
+
+.map {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-block;
+    width: 60%;
+ }
+ .img-map {
+   width: 100%;
+   height: 100%;  
+ }
+ .dots {
+   position: absolute;
+   top: 0; right: 0; bottom: 0; left: 0;
+ }
+ .map-dot {
+   position: absolute;
+   width: 9px; height: 9px;
+   border-radius: 50%;
+   background-color: orange;
+   border: 1px solid white;
+   text-decoration: none;
+ }
+ .map-dot .text {
+   display: none;
+ }
+ .map-dot:hover .text {
+   display: block;
+   position:absolute;
+   margin-left: 40px;
+   margin-top: -30px;
+   background-color: black;
+   opacity: .7;
+   color: white;
+   padding: 1.5rem;
+   width: 160px;
+ }
+ .map-dot:hover .text:before {
+   content: '';
+   border-bottom: 12px solid transparent;
+   border-right: 14px solid black;
+   border-top: 12px solid transparent;
+   display: block;
+   margin-left: -14px;
+   margin-top: 22px;
+   position: absolute;
+   top: 0;
+   left: 0;
+ }
+ .title {
+   display: block;
+     color: orange;
+     text-transform: uppercase;
+     margin-bottom: 1rem;
+ }
+ 
+ .map-dot::before, .map-dot::after {
+   content: "";
+   position: absolute;
+   top: -2rem; right: -2rem; bottom: -2rem;     left: -2rem;
+   border: 1px solid red;
+   border-radius: inherit;
+   opacity: 1;
+   transform: scale(0);
+   animation: circles 3s infinite;
+ }
+ 
+ .map-dot::after {
+   animation-delay: .3s;
+ }
+ 
+ @media(min-width: 768px) {
+   
+   @keyframes circles {
+     to {
+       opacity: 0;
+       transform: scale(1);
+     }
+   }
+ }
+
+.royalePlayers table {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+}
+
+.playerTile {
+  border: solid 1px;
+  width: 120px;
+  height: 90px;
+  padding: 0px;
+  margin: 0px;
+  position: relative;
+
+}
+
+.royalePlayers #playerSpace  {
+  background-color: yellow;
+}
+
+.playerTile img {
+  top: 2px;
+  left: 25px;/*120-70=50/2=25*/
+  height: 70px;
+  width: 70px;
+  position: absolute;
+
+}
+
+.playerTileName {
+  position: absolute;
+  font-size: 12px;
+  bottom: 1px;
+  text-align: center;
+  width: 90%;
+  margin: 0px;
+}
+
+select {
+  width: 200px;
+  padding: 5px;
+  padding-left: 10px;
+  background-color: #2c3e50;
+  color: #CEF2FF;
+  font-size: 16px;
 }

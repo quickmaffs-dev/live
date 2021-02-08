@@ -627,3 +627,201 @@ export function scaleApplications() {
     let arr = [correct_ans, mc1, mc2, mc3];
     return [questionText].concat(arr);
 }
+
+export function rationalOrIrrational() {    
+    let questionText = "Which of the following is rational?";
+    //"&radic;<span style='text-decoration: overline'>" + (ans) + "</span>";
+    let a = getRandomNumber(1, 10, 0, 0);
+    let b = getRandomNumber(a + 1, 20, 0, 0);
+    let irr = ["<span>e</span>", "<span>&pi;</span>", "&radic;<span style='text-decoration: overline'>" + ((a ** 2) + 1) + "</span>", "&radic;<span style='text-decoration: overline'>" + ((b ** 2) + 1) + "</span>", "<sup>3</sup>&radic;<span style='text-decoration: overline'>" + ((getRandomNumber(1, 10, 0, 0)) ** 3 + 1) + "</span>"];
+    let rat = [getRandomNumber(1, 100, 0, 1), getRandomNumber(1, 100, 0, 1), "<sup>" + getRandomNumber(1, 20, 0, 0) + "</sup>/<sub>" + getRandomNumber(2, 20, 0, 0) + "</sub>", getRandomNumber(1, 20, 0, 1) + " <sup>" + getRandomNumber(1, 10, 0, 0) + "</sup>/<sub>" + getRandomNumber(11, 20, 0, 0) + "</sub>", "&radic;<span style='text-decoration: overline'>" + ((getRandomNumber(1, 10, 0, 0)) ** 2) + "</span>", getRandomNumber(1, 100, 0, 1) + ".<span style='text-decoration: overline; font-style:normal'>" + getRandomNumber(1, 100, 0, 0) + "</span>", getRandomNumber(1, 100, 0, 1) + "." + getRandomNumber(1, 100, 0, 0), getRandomNumber(1, 100, 0, 1) + "%", "<sup>3</sup>&radic;<span style='text-decoration: overline'>" + ((getRandomNumber(1, 10, 0, 0)) ** 3) + "</span>"];
+    let correct_ans = rat[getRandomNumber(0, rat.length-1, 0, 0)];
+    let mc1 = irr[0];
+    let mc2 = irr[1];
+    let mc3 = irr[getRandomNumber(2, irr.length-1, 0, 0)];
+
+
+    if (getRandomNumber(1, 2, 0, 0) === 1) {
+        questionText = "Which of the following is irrational?";
+        correct_ans = irr[getRandomNumber(0, irr.length-1, 0, 0)];
+        mc1 = rat[getRandomNumber(0, 1, 0, 0)];
+        mc2 = rat[getRandomNumber(2, 3, 0, 0)];
+        mc3 = rat[getRandomNumber(4, rat.length-1, 0, 0)];
+    }
+    
+    let arr = [correct_ans, mc1, mc2, mc3];
+    return [questionText].concat(arr);
+}
+
+export function simplifySurd() {
+    let a = getRandomNumber(2, 12, 0, 0) ** 2;
+    let x = getRandomNumber(2, 20, 0, 0);
+    while (Math.sqrt(a * x) === Math.floor(Math.sqrt(a * x))) {
+        x = getRandomNumber(2, 20, 0, 0);
+    }
+    let c = 1;
+    let questionText = "Simplify &radic;<span style='text-decoration: overline'>" + c * (a * x) + "</span>";
+    if (getRandomNumber(1, 2, 0, 0) === 1) {
+        c = getRandomNumber(2, 10, 0, 0);
+        questionText = "Simplify <span>" + c + "</span>&radic;<span style='text-decoration: overline'>" + (a * x) + "</span>";
+    }
+    let correct_ans = "<span>" + c * Math.sqrt(a) + "</span>&radic;<span style='text-decoration: overline'>" + x + "</span>";
+    let mc1 = "<span>" + c * a + "</span>&radic;<span style='text-decoration: overline'>" + x + "</span>";
+    let mc2 = "<span>" + c * x + "</span>&radic;<span style='text-decoration: overline'>" + a + "</span>";
+    let mc3 = "<span>" + c * a + "</span>&radic;<span style='text-decoration: overline'>" + (a * x) + "</span>";
+    
+    let arr = [correct_ans, mc1, mc2, mc3];
+    return [questionText].concat(arr);
+}
+
+export function expandSurd() {
+    let a = getRandomNumber(2, 12, 0, 0) ** 2;
+    let x = getRandomNumber(2, 20, 0, 0);
+    while (Math.sqrt(a * x) === Math.floor(Math.sqrt(a * x))) {
+        x = getRandomNumber(2, 20, 0, 0);
+    }
+    let questionText = "Write in surd form <span>" + Math.sqrt(a) + "</span>&radic;<span style='text-decoration: overline'>" + x + "</span>";
+    let correct_ans = "&radic;<span style='text-decoration: overline'>" + (a * x) + "</span>";
+    let mc1 = "&radic;<span style='text-decoration: overline'>" + (a * x + getRandomNumber(1, 10, 0, 1)) + "</span>";
+    let mc2 = "&radic;<span style='text-decoration: overline'>" + (a * x + getRandomNumber(1, 10, 0, 1)) + "</span>";
+    let mc3 = "&radic;<span style='text-decoration: overline'>" + (a * x + getRandomNumber(1, 10, 0, 1)) + "</span>";
+    
+    let arr = [correct_ans, mc1, mc2, mc3];
+    return [questionText].concat(arr);
+}
+
+export function surdAlgebra() {
+    let questionText, correct_ans, mc1, mc2, mc3;
+    let a = getRandomNumber(1, 12, 0, 1);
+    let x = getRandomNumber(2, 20, 0, 0);
+    while (Math.sqrt(a * x) === Math.floor(Math.sqrt(a * x))) {
+        x = getRandomNumber(2, 20, 0, 0);
+    }
+    let b = getRandomNumber(1, 12, 0, 0);
+    let type = getRandomNumber(1, 3, 0, 0);
+    type = 3; // delet me
+    if (type === 1) {
+        questionText = "Simplify <span>" + a + "</span>&radic;<span style='text-decoration: overline'>" + x + "</span>";
+        if (a === 1) {
+            questionText = "Simplify &radic;<span style='text-decoration: overline'>" + x + "</span>";
+        }
+
+        let questionTextB;
+
+        if (getRandomNumber(1, 2, 0, 0) === 1) {
+            // a/x + b/x
+            questionTextB = " + <span>" + b + "</span>&radic;<span style='text-decoration: overline'>" + x + "</span>";
+            if (b === 1) {
+                questionTextB = " + &radic;<span style='text-decoration: overline'>" + x + "</span>";
+            }
+
+            correct_ans = "<span>" + (a + b) + "</span>&radic;<span style='text-decoration: overline'>" + x + "</span>";
+            mc1 = "<span>" + (a + b + getRandomNumber(1, 5, 0, 1)) + "</span>&radic;<span style='text-decoration: overline'>" + x + "</span>";
+            mc2 = "<span>" + (a + b + getRandomNumber(1, 5, 0, 1)) + "</span>&radic;<span style='text-decoration: overline'>" + x + "</span>";
+            mc3 = "<span>" + (a + b + getRandomNumber(1, 5, 0, 1)) + "</span>&radic;<span style='text-decoration: overline'>" + x + "</span>";
+        } else {
+            // a/x - b/x
+            questionTextB = " - <span>" + b + "</span>&radic;<span style='text-decoration: overline'>" + x + "</span>";
+            if (b === 1) {
+                questionTextB = " - &radic;<span style='text-decoration: overline'>" + x + "</span>";
+            }
+
+            correct_ans = "<span>" + (a - b) + "</span>&radic;<span style='text-decoration: overline'>" + x + "</span>";
+            mc1 = "<span>" + (a - b + getRandomNumber(1, 5, 0, 1)) + "</span>&radic;<span style='text-decoration: overline'>" + x + "</span>";
+            mc2 = "<span>" + (a - b + getRandomNumber(1, 5, 0, 1)) + "</span>&radic;<span style='text-decoration: overline'>" + x + "</span>";
+            mc3 = "<span>" + (a - b + getRandomNumber(1, 5, 0, 1)) + "</span>&radic;<span style='text-decoration: overline'>" + x + "</span>";
+        }
+        questionText += questionTextB;
+    } else if (type === 2) {        
+        let m = getRandomNumber(2, 10, 0, 0) ** 2;
+        let n = getRandomNumber(2, 10, 0, 0) ** 2;
+        
+        questionText = "Simplify <span>" + a + "</span>&radic;<span style='text-decoration: overline'>" + m*x + "</span>";
+        if (a === 1) {
+            questionText = "Simplify &radic;<span style='text-decoration: overline'>" + m*x + "</span>";
+        }
+
+        let questionTextB;
+
+        if (getRandomNumber(1, 2, 0, 0) === 1) {
+            // a/x + b/x
+            questionTextB = " + <span>" + b + "</span>&radic;<span style='text-decoration: overline'>" + n*x + "</span>";
+            if (b === 1) {
+                questionTextB = " + &radic;<span style='text-decoration: overline'>" + n*x + "</span>";
+            }
+
+            correct_ans = "<span>" + (a * Math.sqrt(m) + b * Math.sqrt(n)) + "</span>&radic;<span style='text-decoration: overline'>" + x + "</span>";
+            mc1 = "<span>" + (a * Math.sqrt(m) + b * Math.sqrt(n) + getRandomNumber(1, 5, 0, 1)) + "</span>&radic;<span style='text-decoration: overline'>" + (x + getRandomNumber(1, x-2, 0, 1)) + "</span>";
+            mc2 = "<span>" + (a * Math.sqrt(m) + b * Math.sqrt(n) + getRandomNumber(1, 5, 0, 1)) + "</span>&radic;<span style='text-decoration: overline'>" + (x + getRandomNumber(1, x-2, 0, 1)) + "</span>";
+            mc3 = "<span>" + (a * Math.sqrt(m) + b * Math.sqrt(n) + getRandomNumber(1, 5, 0, 1)) + "</span>&radic;<span style='text-decoration: overline'>" + (x + getRandomNumber(1, x-2, 0, 1)) + "</span>";
+        } else {
+            // a/x - b/x
+            questionTextB = " - <span>" + b + "</span>&radic;<span style='text-decoration: overline'>" + n*x + "</span>";
+            if (b === 1) {
+                questionTextB = " - &radic;<span style='text-decoration: overline'>" + n*x + "</span>";
+            }
+
+            correct_ans = "<span>" + (a * Math.sqrt(m) - b * Math.sqrt(n)) + "</span>&radic;<span style='text-decoration: overline'>" + x + "</span>";
+            mc1 = "<span>" + (a * Math.sqrt(m) - b * Math.sqrt(n) + getRandomNumber(1, 5, 0, 1)) + "</span>&radic;<span style='text-decoration: overline'>" + (x + getRandomNumber(1, x-2, 0, 1)) + "</span>";
+            mc2 = "<span>" + (a * Math.sqrt(m) - b * Math.sqrt(n) + getRandomNumber(1, 5, 0, 1)) + "</span>&radic;<span style='text-decoration: overline'>" + (x + getRandomNumber(1, x-2, 0, 1)) + "</span>";
+            mc3 = "<span>" + (a * Math.sqrt(m) - b * Math.sqrt(n) + getRandomNumber(1, 5, 0, 1)) + "</span>&radic;<span style='text-decoration: overline'>" + (x + getRandomNumber(1, x-2, 0, 1)) + "</span>";
+        }
+        questionText += questionTextB;
+    } else if (type === 3) {
+        // a/m * b/n        
+        let m = getRandomNumber(2, 15, 0, 0);
+        while (Math.sqrt(m) === Math.floor(Math.sqrt(m))) {
+            m = getRandomNumber(2, 15, 0, 0);
+        }
+        let n = getRandomNumber(2, 15, 0, 0);
+        while (Math.sqrt(n) === Math.floor(Math.sqrt(n))) {
+            n = getRandomNumber(2, 15, 0, 0);
+        }
+
+        
+        questionText = "Simplify <span>" + a + "</span>&radic;<span style='text-decoration: overline'>" + m + "</span>";
+        if (a === 1) {
+            questionText = "Simplify &radic;<span style='text-decoration: overline'>" + m + "</span>";
+        }
+
+        let questionTextB;
+        // a/x + b/x
+        questionTextB = " &#215; <span>" + b + "</span>&radic;<span style='text-decoration: overline'>" + n + "</span>";
+        if (b === 1) {
+            questionTextB = " &#215; &radic;<span style='text-decoration: overline'>" + n + "</span>";
+        }
+
+        questionText += questionTextB;
+        let ans = a**2 * m * b ** 2 * n;
+        let sign = "";
+        if (a * b < 0) {
+            sign = "-";
+        }
+        
+        correct_ans = sign + "&radic;<span style='text-decoration: overline'>" + ans + "</span>";
+        mc1 = sign + "&radic;<span style='text-decoration: overline'>" + getRandomNumber(1, 20, 0, 0) + "</span>";
+        mc2 = sign + "&radic;<span style='text-decoration: overline'>" + getRandomNumber(1, 20, 0, 0) + "</span>";
+        mc3 = sign + "&radic;<span style='text-decoration: overline'>" + getRandomNumber(1, 20, 0, 0) + "</span>";
+
+        // simplify surd (c/d)            
+        let c = 1;
+        for (let i = 15; i > 1; i--) {
+            if (ans % (i ** 2) === 0) {
+                ans /= (i ** 2);
+                c *= i;
+            }
+        }
+
+        if (c > 1) {
+            console.log("simplified");
+            correct_ans = "<span>" + c + "</span>&radic;<span style='text-decoration: overline'>" + ans + "</span>";
+            mc1 = sign + "<span>" + getRandomNumber(1, 12, 0, 0) + "</span>&radic;<span style='text-decoration: overline'>" + getRandomNumber(2, 100, 0, 0) + "</span>";
+            mc2 = sign + "<span>" + getRandomNumber(1, 12, 0, 0) + "</span>&radic;<span style='text-decoration: overline'>" + getRandomNumber(2, 100, 0, 0) + "</span>";
+            mc3 = sign + "<span>" + getRandomNumber(1, 12, 0, 0) + "</span>&radic;<span style='text-decoration: overline'>" + getRandomNumber(2, 100, 0, 0) + "</span>";
+        }
+
+    }
+
+    let arr = [correct_ans, mc1, mc2, mc3];
+    return [questionText].concat(arr);
+}

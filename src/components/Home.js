@@ -1,17 +1,85 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../App.css';
-import icon from '../img/icon.png';
+//import icon from '../img/icon.png';
+import firebase from './firebase';
+
+
+async function getTodaysInfo() {
+    await getQuote();
+    await getSong();
+    console.log("we're good to go jack");
+}
+
+async function getQuote() {
+    let oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    let firstDate = new Date();
+    let secondDate = new Date("2021-02-03");
+    let diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+
+    let quote = await firebase.getQuoteFromDb(diffDays);
+    if (document.getElementById("quote")) {
+      document.getElementById("quote").innerHTML = quote.quote;
+      document.getElementById("quoteAuthor").innerHTML = " - " + quote.author;
+      document.getElementById("quoteAuthor").href = quote.link;
+      document.getElementById("quoteImg").src = quote.img;
+      document.getElementById("quoteAuthor").style.display = "block";
+      document.getElementById("quoteImg").style.display = "block";
+    }
+    
+
+}
+
+async function getSong() {
+    let oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    let firstDate = new Date();
+    let secondDate = new Date("2021-02-03");
+    let diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+
+    let song = await firebase.getSongFromDb(diffDays);
+    let emb;
+
+    if (song) {
+      // get embed code
+      emb = song.split("?v=")[1];
+    } else {
+      console.log("WE ARE OUT OF SONGS");
+      emb = "PIb6AZdTr-A";
+    }
+
+    // when you have the await, if you switch links to another page which does have songID, you will get errors
+    if (document.getElementById("songID")) {
+      document.getElementById("songID").src = "https://www.youtube.com/embed/" + emb;
+      document.getElementById("songID").style.display = "block";
+    }
+    
+}
+
 
 function Home() {
+  useEffect(() => {
+    getTodaysInfo();
+  }); 
+
   return (
-    <div>
-      <div className="Home">        
-        <h1>Home page</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-        <img className="Image" src={icon} alt='icon'></img>
-        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
+    <div className="Home">
+      <h1>Home page</h1>
+      <p>Welcome to QuickMaffs!</p>
+      <br /><br /><br /><br />
+      <div className="quoteSpace">
+        <h3>Quote of the day</h3>
+        <div className="quoteText">
+          <p id="quote"></p>
+          <a id="quoteAuthor" href="https://en.wikipedia.org/wiki/michael_Jordan" target="_blank" rel="noopener noreferrer" style={{display:"none"}} >test</a>
+        </div>
+        <img id="quoteImg" alt="quote author" style={{display:"none"}} />
       </div>
+      
+      <br />
+      <div className="songSpace">
+        <h3>Song of the day</h3>
+        <iframe title="song" id="songID" width="420" height="315"  style={{display:"none"}} src=""></iframe>
+      </div>
+      <br /><br /><br />
     </div>
     
   );

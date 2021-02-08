@@ -35,6 +35,36 @@ export function getRandomNumber(min, max, dec, sign) {
     return n;
 }
 
+export function randomPassGen() {
+    // generates random 6 figure code
+    let code = "";
+    for (let i = 0; i < 6; i++) {
+        code += String.fromCharCode(getRandomNumber(65, 90, 0, 0));
+    }
+    return code;
+}
+
+export function getDate() {
+    let now = new Date();
+    let d = new Date(now.getUTCFullYear(), now.getUTCMonth()+1, now.getUTCDate());
+    return d;
+}
+
+export function getHomeworkTopics() {
+    let homeworkTopics = [
+        "algebra ex01"
+        , "algebra ex02"
+        , "algebra ex03"
+        , "algebra ex04"
+        , "earning money ex01"
+        , "earning money ex02"
+        , "earning money ex03"
+        , "earning money ex04"
+        , "earning money ex05"
+    ]
+    return homeworkTopics;
+}
+
 export function dpCheck(n) {
     // fixes 2.00000001 errors
     let max_dp = 5;
@@ -69,17 +99,47 @@ export function printTest(words) {
 
 export function getPronumeral() {
     let x = getRandomNumber(0, 25, 0, 0);
+    while (x === 14) { // x <> 'o'
+        x = getRandomNumber(0, 25, 0, 0);
+    }
     let pronum = "<span>" + String.fromCharCode(97 + x) + "</span>";
     return pronum;
 }
 
 export function answerType(ansType) {    
     if (ansType === 1) {
-        document.getElementById("answerType01").style.display = "block";
+        document.getElementById("answerType01").style.display = "block"; // mc
     } else if (ansType === 2) {
-        document.getElementById("answerType02").style.display = "block";
+        document.getElementById("answerType02").style.display = "block"; // t or f
     } else if (ansType === 3) {
-        document.getElementById("answerType03").style.display = "block";
+        document.getElementById("answerType03").style.display = "block"; // input
+        document.getElementById("userInputStringID").focus(); // set cursor
+        /*
+        document.getElementById("userInputStringID").addEventListener("keypress", function(event){
+            if (event.defaultPrevented) {
+                return; // Should do nothing if the default action has been cancelled
+            }
+        
+            var handled = false;
+            if (event.key !== undefined) {
+                if (event.key === 13) {
+                    console.log("working");
+                }
+            }  
+            if (event.keyCode !== undefined) {
+                if (event.keyCode === 13) {
+                    console.log("working2");
+                }
+            }
+        
+            if (handled) {
+            // Suppress "double action" if event handled
+                event.preventDefault();
+            }
+        });
+        */
+    } else if (ansType === 4) {
+        document.getElementById("answerType04").style.display = "block"; // show ans
     }
 }
 
@@ -89,6 +149,7 @@ export function reset() {
     document.getElementById("answerType01").style.display = "none";
     document.getElementById("answerType02").style.display = "none";
     document.getElementById("answerType03").style.display = "none";
+    document.getElementById("answerType04").style.display = "none";
     
     document.getElementById("nextQuesBtnID").style.display = "none";
     document.querySelectorAll(".questionBody")[0].style.display = "block";
@@ -99,19 +160,36 @@ export function reset() {
     document.getElementById("questionDiagramID").style.display = "none";
     document.getElementById("canvasID").style.display = "none";    
     document.getElementById("questionImgID").style.display = "none";
+    document.getElementById("correctWork").innerHTML = "";
+    document.getElementById("showCorrectWorkBtn").style.display = "none";
     setAnsBtns(false);
 }
 
+export function specialLetterCheck(uA) {
+    uA = uA.replace(/"/g, "'");
+    if (uA.includes("√")) {
+        uA = uA.replace(/√/g, "&radic;");
+    }
+    if (uA.includes("π")) {
+        uA = uA.replace(/π/g, "&pi;");
+    }
+    return uA;
+}
 
-export async function checkAns(correctAns, userAns, questionString, chapter) {
+export async function checkAns(correctAns, userAns, questionString, chapter) {    
     let result, resultMsg = "";
     correctAns = correctAns.toString();
     userAns = userAns.toString();
+    userAns = specialLetterCheck(userAns);
+    
+    let points = 0;
     if (userAns !== "") {
         if (userAns === correctAns) {
             resultMsg = userAns + " THAT IS CORRECT";
             resultFunc(resultMsg, "Correct");
             result = 1;
+            let multiplier = 1;
+            points = 100 * multiplier;
         } else {
             resultMsg = userAns + " is incorrect<br>The correct answer is " + correctAns;
             resultFunc(resultMsg, "Incorrect");
@@ -119,6 +197,7 @@ export async function checkAns(correctAns, userAns, questionString, chapter) {
         }
         setAnsBtns(true);
         document.getElementById("nextQuesBtnID").style.display = "block";
+
     }
 
 
@@ -131,14 +210,18 @@ export async function checkAns(correctAns, userAns, questionString, chapter) {
     if (email) {
         let db = "question-db";
         let post = [questionString, userAns, correctAns, result, user_id, chapter];
-        await firebase.addQToDb(db, post);
+        let d = getDate();
+        await firebase.addQToDb(db, post, d);
     }
 
-    if (1 === 2) locallyStoreData(correctAns, userAns, questionString, chapter, result);
+    //if (1 === 2) 
+    locallyStoreData(correctAns, userAns, questionString, chapter, result, points);
+
 }
 
-function locallyStoreData(correctAns, userAns, questionString, chapter, result) {
+function locallyStoreData(correctAns, userAns, questionString, chapter, result, points) {
     if (typeof(Storage) !== "undefined") {
+        /*
         let q_id = 1;
         for (let i = 0; i < localStorage.length; i++) {
             if (localStorage.key(i).includes("QuickMaffs")) {
@@ -146,9 +229,29 @@ function locallyStoreData(correctAns, userAns, questionString, chapter, result) 
             }
         }
         let keyObj = { 'question_id': q_id, 'chapter': chapter, 'questionString': questionString, 'correct_answer' : correctAns, 'user_answer' : userAns, 'result' : result };
+        keyObj = JSON.stringify(keyObj);
         let key = 'QuickMaffs_' + q_id;
         console.log(keyObj + key);
-        //localStorage.setItem(key, JSON.stringify(keyObj));
+        */
+        //let currPoints = 
+        let uid = parseInt(localStorage.getItem("QuickM_u_id"));
+        let key = 'QuickMaffs_points_' + uid + '_';
+        let prevPoints = 0;
+        if (localStorage.getItem(key)) {
+            prevPoints = parseInt(localStorage.getItem(key).split(key));
+            // people have the option to change this - need to fix this
+            if (prevPoints > 2000) {
+                prevPoints = 2000;
+            }
+        }
+        let keyObj = points + prevPoints;
+        if (keyObj >= 1000) {
+            // store in db
+            firebase.depositPoints(uid, keyObj);
+            keyObj = 0;
+        }
+        localStorage.setItem(key, keyObj);
+        
     } else {
         console.log("Browser does not support Web Storage");
     }    
@@ -246,6 +349,11 @@ export function getPrimeFactors(n) {
 }
 
 export function simplifyRatio(a, b) {
+    // if a or b = 1 then cannot be further simplified
+    if (a === 1 || b === 1) {
+        return [a, b];
+    }
+
     let aF = getPrimeFactors(a);
     let bF = getPrimeFactors(b);
     
@@ -351,6 +459,43 @@ export function getScores() {
     return scores;
 }
 
+export function combinations(n, r) {
+    let num = factorial(n); // n!
+    let denom = factorial(r) * factorial(n - r);    // r! (n-r)!
+    return [num, denom];
+}
+
+export function factorial(n) {
+    if (n !== Math.floor(n)) {
+        console.log("error F01 - n is invalid: " + n);
+        n = Math.floor(n);
+    }
+    if (n === 0) {
+        return 1;
+    }
+    if (n < 0) {
+        console.log("error F02 - n is invalid: " + n);
+        return 0;
+    }
+    let f = 1;
+    while (n > 1) {
+        f *= n;
+        n -= 1;
+    }
+    return f;
+}
+
+export function resetCanvas() {
+    let canvas = document.getElementById("canvasID");
+    canvas.style.backgroundColor = "white";
+    canvas.style.display = "block";
+    canvas.style.marginLeft = "auto";
+    canvas.style.marginRight = "auto";
+    let ctx = canvas.getContext("2d");
+    ctx.save();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
 function getPrimes(primes, max) {
 	var oldPrimes = primes;
 	for (let i = primes[primes.length-1] + 1; i <= max; i++) {
@@ -379,7 +524,7 @@ function updateScores() {
     document.getElementById("scoreID").innerHTML = "Score: " + 100 * numCorrect + " pts";
 }
 
-function setAnsBtns(x) {
+export function setAnsBtns(x) {
     for (let i = 0; i < document.querySelectorAll(".mcAnsBtn").length; i++) {
         document.querySelectorAll(".mcAnsBtn")[i].disabled = x;
     }

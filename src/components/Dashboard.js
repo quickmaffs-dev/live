@@ -8,7 +8,11 @@ const Dashboard = () => {
     
     //const isMountedRef = useRef(null);
     useEffect(() => {
-        let user_id = firebase.getCurrentUserID();
+        checkIfUserIsLoggedIn();             
+    });
+
+    async function checkIfUserIsLoggedIn() {
+        let user_id = await firebase.getCurrentUserID();
         //setUserID(user_id);
         //let em = firebase.getCurrentUsername();
         //setEmail(em);        
@@ -16,8 +20,8 @@ const Dashboard = () => {
             getResults(user_id);
         } else {
             noUser();
-        }        
-    });
+        }   
+    }
 
     function noUser() {
         document.querySelectorAll(".results")[0].style.display = "block";
@@ -68,6 +72,9 @@ const Dashboard = () => {
 
     async function getResults(u_id) {
         console.log("u_id is " + u_id);
+        if (document.getElementById("dashboardTextID")) {
+            document.getElementById("dashboardTextID").innerHTML = "Getting users results from the database...";
+        }
         
         let allChapters = [];
         let numCorrect = [];
@@ -78,6 +85,9 @@ const Dashboard = () => {
         //let x = await firebase.database().ref(db).once('value');
 
         let x = await firebase.getDataBase(db);
+        if (document.getElementById("dashboardTextID")) {
+            document.getElementById("dashboardTextID").innerHTML = "";
+        }
         for (let k in x.val()) {
             if (x.val()[k].user_id === u_id) {
                 let loc = x.val()[k];
@@ -102,8 +112,11 @@ const Dashboard = () => {
         for (let i = 0; i < allChapters.length; i++) {
             row += "<tr><td>" + allChapters[i] + "</td><td>" + numCorrect[i] + "</td><td>" + total[i] + "</td><td>" + (100 * numCorrect[i] / total[i]).toFixed(0) + "%</td>";
         }
-        document.querySelectorAll(".tableResults")[0].innerHTML = "<table><tr><th>Chapter</th><th>Correct</th><th>Total</th><th>Score</th>" + row + "</table>";
-        showResults(1, 1);
+        
+        if (document.querySelectorAll(".tableResults")[0]) {
+            document.querySelectorAll(".tableResults")[0].innerHTML = "<table><tr><th>Chapter</th><th>Correct</th><th>Total</th><th>Score</th>" + row + "</table>";
+            showResults(1, 1);
+        }        
     }
 
     function showResults(num_c, tot) {
@@ -115,6 +128,8 @@ const Dashboard = () => {
         //document.getElementById("incorrect").innerHTML = incorrectText;
         //document.getElementById("total").innerHTML = totalText;
     }
+
+
     return (
         <div className="Dashboard">
             <h1>Dashboard</h1>

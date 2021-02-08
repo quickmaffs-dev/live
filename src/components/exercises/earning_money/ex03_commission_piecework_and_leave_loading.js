@@ -54,7 +54,7 @@ class ex03_commission_piecework_and_leave_loading extends React.Component {
 		correctAns = mcOptions[0];
         shuffle(mcOptions);
         for (let i = 0; i < document.querySelectorAll(".mcAnsBtn").length; i++) {            
-            document.querySelectorAll(".mcAnsBtn")[i].onclick = () => {checkAns(correctAns, document.querySelectorAll(".mcAnsBtn")[i].innerHTML, this.question_string, "earning money ex02")};            
+            document.querySelectorAll(".mcAnsBtn")[i].onclick = () => {checkAns(correctAns, document.querySelectorAll(".mcAnsBtn")[i].innerHTML, this.question_string, "earning money ex03")};
         }
 
         this.writeFormula();

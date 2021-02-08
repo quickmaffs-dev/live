@@ -1,0 +1,189 @@
+
+
+  .Avatar div {
+    border: 4px solid black;
+    padding: 20px;
+  }
+  
+  .userInfo {
+    position: relative;
+    height: 400px;
+  }
+  
+  .userInfo img {
+    border-radius: 25px;
+  }
+
+  .avatarClass {
+    position: absolute;
+  }
+  
+  table td {
+    border: 1px solid black;
+  }
+
+  .pack {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .slotSlider {
+    display: inline-block;
+    position: relative;
+  }
+  
+  .slotSlider .slot {
+    border: 1px solid black;
+    width: 200px;
+  
+    display: block;
+    position: relative;
+    /*transition: all 1s ease 0s;*/
+    top: 0; /* start out at position 0 */
+    height: 200px;
+    margin: 0;
+    background-color: white;
+  }
+  
+  .slotSlider #sheet1, .slotSlider #sheet2 {
+    position: absolute;
+    left: -15px;
+    height: 220px;
+    width: 215px;
+    padding: 5px;
+    color: transparent;
+    background-color: #002d52;
+    z-index: 1;    
+  }
+
+  .slotSlider #sheet1 {
+    top: -20px;
+    border-bottom: 1px solid black;
+    background-image: linear-gradient(to bottom, #002d52, #005499)
+  }
+  
+  .slotSlider #sheet2 {
+    bottom: -30px;
+    height: 200px;
+    border-top: 1px solid black;
+    background-image: linear-gradient(to top, #002d52, #005499)
+  }
+
+  .slotMachine {
+    position: relative;
+    background-color: #002d52;
+    border-radius: 25px;
+  }
+  
+  .itemList, .otherItemsForSale {
+    overflow: auto;
+  }
+
+  .itemList img {
+    width: 200px;
+  }
+
+  .itemList p {
+    font-size: 15px;
+  }
+
+  .itemList input {
+    width: 100px;
+  }
+  
+  /* button slot css */  
+  .pack button {
+    --backgroundColor: rgba(246, 241, 209);
+    --colorShadeA: rgb(106, 163, 137);
+    --colorShadeB: rgb(121, 186, 156);
+    --colorShadeC: rgb(150, 232, 195);
+    --colorShadeD: rgb(187, 232, 211);
+    --colorShadeE: rgb(205, 255, 232);
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 1.5rem;
+    color:var(--colorShadeA);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: inherit;
+  }
+  
+  button.big-button {
+    padding: 1em 2em;
+    border: 2px solid var(--colorShadeA);
+    border-radius: 1em;
+    background: var(--colorShadeE);
+    transform-style: preserve-3d;
+    transition: all 175ms cubic-bezier(0, 0, 1, 1);
+  }
+  button.big-button::before {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--colorShadeC);
+    border-radius: inherit;
+    box-shadow: 0 0 0 2px var(--colorShadeB), 0 0.75em 0 0 var(--colorShadeA);
+    transform: translate3d(0, 0.75em, -1em);
+    transition: all 175ms cubic-bezier(0, 0, 1, 1);
+  }
+    
+  button.big-button:hover {
+    background: var(--colorShadeD);
+    transform: translate(0, 0.375em);
+  }
+  
+  button.big-button:hover::before {
+    transform: translate3d(0, 0.75em, -1em);
+  }
+  
+  button.big-button:active {
+    transform: translate(0em, 0.75em);
+  }
+  
+  button.big-button:active::before {
+    transform: translate3d(0, 0, -1em);    
+    box-shadow: 0 0 0 2px var(--colorShadeB), 0 0.25em 0 0 var(--colorShadeB);  
+  }
+
+  .buttonCentre {
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+  }
+
+  #slotBtn {
+    position: absolute;
+    top: 70px;
+    left: 0px;
+    z-index: 3;
+  }
+
+  .myItems button, .marketplace button {
+    background-color: #0093FF; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid #001871;
+  }
+  
+  .myItems button:hover, .marketplace button:hover {
+    background-color: #001871; /* Green */
+  }
+
+  .marketplace img {
+    width: 200px; 
+  }
