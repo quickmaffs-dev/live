@@ -198,7 +198,6 @@ function App() {
 
               <Route path="/exercises/hsc/standard_short_answer" component={standard_short_answer} /> 
               
-
               <Route component={ErrorPage} />
             </Switch>
           </main>

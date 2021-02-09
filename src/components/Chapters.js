@@ -14,7 +14,7 @@ function Chapters() {
 
               <h4>Chapter 2: Algebra</h4>
               <li><Link to="/exercises/algebra/ex01_addition_and_subtraction?yr=%7%">Ex 01 - Addition and subtraction</Link></li>
-              <li><Link to="/exercises/algebra/ex02_multiplication?yr=%7%">Ex 02 - Multiplication</Link></li>
+              <li><Link to="/exercises/algebra/ex02_multiplication?yr=%7%" >Ex 02 - Multiplication</Link></li>
               <li><Link to="/exercises/algebra/ex03_bidmas?yr=%9%">Ex 03 - BIDMAS</Link></li>
               <li><Link to="/exercises/algebra/ex04_pronumerals?yr=%11%">Ex 04 - Pronumerals</Link></li>
               <li><Link to="/exercises/algebra/ex05_fractions?yr=%9%">Ex 05 - Fractions</Link></li>
