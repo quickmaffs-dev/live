@@ -166,6 +166,7 @@ export function reset() {
 }
 
 export function specialLetterCheck(uA) {
+    uA = uA.toString();
     uA = uA.replace(/"/g, "'");
     if (uA.includes("√")) {
         uA = uA.replace(/√/g, "&radic;");
@@ -178,8 +179,9 @@ export function specialLetterCheck(uA) {
 
 export async function checkAns(correctAns, userAns, questionString, chapter) {    
     let result, resultMsg = "";
-    correctAns = correctAns.toString();
-    userAns = userAns.toString();
+    //correctAns = correctAns.toString();
+    //userAns = userAns.toString();
+    correctAns = specialLetterCheck(correctAns);
     userAns = specialLetterCheck(userAns);
     
     let points = 0;

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 import SidebarRight from './SidebarRight';
-import SidebarNew from './SidebarNew';
+//import SidebarNew from './SidebarNew';
 import WorkspaceQuestion from './WorkspaceQuestion';
 import '../styling/workspace.css';
 
@@ -10,7 +10,7 @@ class Workspace extends React.Component {
   render() {
     return (
       <div>
-          <div style={{display: "none"}}><SidebarNew /></div>
+          {/*<div style={{display: "none"}}><SidebarNew /></div>*/}
           <div style={{display: "none"}}><SidebarRight /></div>
           <div id="root"></div>
           <div className="workspace">
