@@ -4,17 +4,19 @@ import { Link } from 'react-router-dom';
 function Chapters() {
     return (
       <div className="Chapters">        
-          <h1>Chapters</h1>
+          <h1>Chapters</h1>          
           <div className="yearSection">              
               <h4>Chapter 1: Working with Numbers</h4>
               <li><Link to="/exercises/rates_and_ratios/ex01_converting_rates?yr=%12%">Ex 01 - Converting Rates</Link></li>
               <li><Link to="/exercises/rates_and_ratios/ex02_ratios?yr=%12%">Ex 02 - Ratios</Link></li>
               <li><Link to="/exercises/rates_and_ratios/ex03_scales?yr=%12%">Ex 03 - Scales</Link></li>
               <li><Link to="/exercises/rates_and_ratios/ex04_surds?yr=%10%">Ex 04 - Surds</Link></li>
+              <li><Link to="/exercises/working_with_numbers/ex01_recurring_decimals?yr=%10%">Ex 05 - Recurring Decimals</Link></li>
+              <li><Link to="/exercises/working_with_numbers/ex02_percentages?yr=%10%">Ex 06 - Percentages</Link></li>
 
               <h4>Chapter 2: Algebra</h4>
               <li><Link to="/exercises/algebra/ex01_addition_and_subtraction?yr=%7%">Ex 01 - Addition and subtraction</Link></li>
-              <li><Link to="/exercises/algebra/ex02_multiplication?yr=%7%" >Ex 02 - Multiplication</Link></li>
+              <li><Link to="/exercises/algebra/ex02_multiplication?yr=%7%">Ex 02 - Multiplication</Link></li>
               <li><Link to="/exercises/algebra/ex03_bidmas?yr=%9%">Ex 03 - BIDMAS</Link></li>
               <li><Link to="/exercises/algebra/ex04_pronumerals?yr=%11%">Ex 04 - Pronumerals</Link></li>
               <li><Link to="/exercises/algebra/ex05_fractions?yr=%9%">Ex 05 - Fractions</Link></li>
@@ -27,7 +29,12 @@ function Chapters() {
               <li><Link to="/exercises/earning_money/ex03_commission_piecework_and_leave_loading?yr=%9%">Ex 03 - Commission, piecework and leave loading</Link></li>
               <li><Link to="/exercises/earning_money/ex04_income_tax?yr=%9%">Ex 04 - Income tax</Link></li>
               <li><Link to="/exercises/earning_money/ex05_payg_tax?yr=%9%">Ex 05 - PAYG tax</Link></li>
+              <li><Link to="/exercises/earning_money/ex06_term_payments?yr=%9%">Ex 06 - Term Payments</Link></li>
+
+              <h4>Chapter 3A: Investments and Loans</h4>
               <li><Link to="/exercises/investments_and_loans/ex01_compound_interest?yr=%12%">Ex 01 - Compound Interest</Link></li>
+
+              <h4>Chapter 3B: Annuities</h4>
               <li><Link to="/exercises/annuities/ex01_modelling_annuities?yr=%12%">Ex 01 - Annuities</Link></li>
               <li><Link to="/exercises/annuities/ex02_future_value_table?yr=%12%">Ex 02 - Future Value Tables</Link></li>
 
