@@ -1,9 +1,9 @@
 import React from 'react';
 import {getRandomNumber, printTest, shuffle, reset, answerType, checkAns} from '../MathFunctions';
 import Workspace from '../../Workspace';
-import {compoundInterest, compoundInterestPeriod, inflation, shares, dividend, brokerageFees, depreciation, loans, creditCardInterest, bankFees} from './investments_and_loans_exercises';
+import {changePercentage, expressAsPercentage, getPercentage} from './working_with_numbers_exercises';
 
-class ex01_compound_interest extends React.Component {
+class ex02_percentages extends React.Component {
     constructor(props) {
         super(props);
         this.x = 1;
@@ -18,8 +18,8 @@ class ex01_compound_interest extends React.Component {
 
     
     componentDidMount(){
-        document.querySelectorAll(".topicHeading")[0].innerHTML = "Investments and Loans";
-        document.querySelectorAll(".topicSubHeading")[0].innerHTML = "This will ask questions on compound interest. Click the Start button below to begin...";            
+        document.querySelectorAll(".topicHeading")[0].innerHTML = "Working with Numbers";
+        document.querySelectorAll(".topicSubHeading")[0].innerHTML = "This will ask questions on percentages. Click the Start button below to begin...";
         document.getElementById("startSessionBtnID").onclick = () => {this.makeQuestion()}; //this.makeQuestion
         document.getElementById("nextQuesBtnID").onclick = () => {this.makeQuestion()};
     }
@@ -30,36 +30,15 @@ class ex01_compound_interest extends React.Component {
         answerType(1); // multiple choice == 1 // each exercise (ex01, ex02...) should be of same answer type so that user doesnt switch from mc to input etc
         
         this.numQuestions += 1;
-        let numQuestionTypes = 10;
-
-        if (localStorage.getItem("QuickM_u_level") !== null) {
-            if (localStorage.getItem("QuickM_u_level") <= 10) {
-                numQuestionTypes = 3;
-            }
-        }
+        let numQuestionTypes = 3;
         let chooseQuestion = getRandomNumber(1, numQuestionTypes, 0, 0);
-        //chooseQuestion = numQuestionTypes;
         let correctAns, result;        
         if (chooseQuestion === 1) {
-            result = compoundInterest();
+            result = getPercentage();
         } else if (chooseQuestion === 2) {
-            result = compoundInterestPeriod();
+            result = changePercentage();
         } else if (chooseQuestion === 3) {
-            result = depreciation();            
-        } else if (chooseQuestion === 4) {
-            result = shares();
-        } else if (chooseQuestion === 5) {
-            result = dividend();
-        } else if (chooseQuestion === 6) {
-            result = brokerageFees();
-        } else if (chooseQuestion === 7) {
-            result = inflation();
-        } else if (chooseQuestion === 8) {
-            result = loans();
-        } else if (chooseQuestion === 9) {
-            result = creditCardInterest();
-        } else if (chooseQuestion === 10) {
-            result = bankFees();
+            result = expressAsPercentage();
         } else {
             printTest("ERROR : chooseQuestion() = " + chooseQuestion);
         }
@@ -71,7 +50,7 @@ class ex01_compound_interest extends React.Component {
 		correctAns = mcOptions[0];
         shuffle(mcOptions);
         for (let i = 0; i < document.querySelectorAll(".mcAnsBtn").length; i++) {            
-            document.querySelectorAll(".mcAnsBtn")[i].onclick = () => {checkAns(correctAns, document.querySelectorAll(".mcAnsBtn")[i].innerHTML, this.question_string, "investments and loans ex01")};
+            document.querySelectorAll(".mcAnsBtn")[i].onclick = () => {checkAns(correctAns, document.querySelectorAll(".mcAnsBtn")[i].innerHTML, this.question_string, "working with numbers ex06")};
         }
 
         this.writeFormula();
@@ -87,11 +66,7 @@ class ex01_compound_interest extends React.Component {
 
     writeExample = () => {
         document.getElementById("exampleTextID").innerHTML = `
-        eg1, 4 ^ 2 = 4 x 4
-        <br> 
-        = 16
-        <br>
-        eg2, sqrt(9) = 3
+        If Mac earns a wage of $16 an hour and he works 30 hours a week, he earns a total of $16 &#215; 30 hours = $480 a week.
         `;
     }
 
@@ -105,4 +80,4 @@ class ex01_compound_interest extends React.Component {
     }
 }  
 
-export default ex01_compound_interest;
+export default ex02_percentages;

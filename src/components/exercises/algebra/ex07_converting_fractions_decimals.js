@@ -48,7 +48,7 @@ class ex07_converting_fractions_decimals extends React.Component {
         correctAns = mcOptions[0];
         shuffle(mcOptions);
         for (let i = 0; i < document.querySelectorAll(".mcAnsBtn").length; i++) {                  
-            document.querySelectorAll(".mcAnsBtn")[i].onclick = () => {checkAns(correctAns, document.querySelectorAll(".mcAnsBtn")[i].innerHTML, this.question_string, "algebra ex05")};
+            document.querySelectorAll(".mcAnsBtn")[i].onclick = () => {checkAns(correctAns, document.querySelectorAll(".mcAnsBtn")[i].innerHTML, this.question_string, "algebra ex07")};
         }
         document.getElementById(this.question_string);
         this.writeFormula();

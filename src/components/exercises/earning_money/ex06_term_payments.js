@@ -1,9 +1,9 @@
 import React from 'react';
-import {getRandomNumber, printTest, reset, answerType, shuffle, checkAns} from '../MathFunctions';
+import {getRandomNumber, printTest, shuffle, reset, answerType, checkAns} from '../MathFunctions';
 import Workspace from '../../Workspace';
-import {fractions, mixedFractions} from './algebra_exercises';
+import {deferredPaymentPlan, termPaymentsPackage} from './earning_money_exercises';
 
-class ex05_fractions extends React.Component {
+class ex06_term_payments extends React.Component {
     constructor(props) {
         super(props);
         this.x = 1;
@@ -12,15 +12,14 @@ class ex05_fractions extends React.Component {
         this.userAns = 1;
         this.numCorrect = 0;
         this.numQuestions = 0;
-        this.userScore = 1;
-        this.x_line = 1;    
-        this.y_line = 1;
+        this.userScore = 1;        
         this.question_string = "";
-    }
+    }    
+
     
     componentDidMount(){
-        document.querySelectorAll(".topicHeading")[0].innerHTML = "Algebra";
-        document.querySelectorAll(".topicSubHeading")[0].innerHTML = "This will ask quesitons regarding fractions. Click the Start button below to begin...";
+        document.querySelectorAll(".topicHeading")[0].innerHTML = "Earning Money";
+        document.querySelectorAll(".topicSubHeading")[0].innerHTML = "This will ask questions on term payments. Click the Start button below to begin...";            
         document.getElementById("startSessionBtnID").onclick = () => {this.makeQuestion()}; //this.makeQuestion
         document.getElementById("nextQuesBtnID").onclick = () => {this.makeQuestion()};
     }
@@ -28,46 +27,44 @@ class ex05_fractions extends React.Component {
     makeQuestion = () => { 
         document.getElementById("startSessionBtnID").style.display = "none";
         reset();       
-        answerType(1); // multiplechoice === 1
+        answerType(1); // multiple choice == 1 // each exercise (ex01, ex02...) should be of same answer type so that user doesnt switch from mc to input etc
         
         this.numQuestions += 1;
         let numQuestionTypes = 2;
         let chooseQuestion = getRandomNumber(1, numQuestionTypes, 0, 0);
-        let correctAns, result;
-        chooseQuestion = 1;
+        let correctAns, result; 
+        chooseQuestion = numQuestionTypes;
         if (chooseQuestion === 1) {
-            result = fractions();
+            result = termPaymentsPackage();
         } else if (chooseQuestion === 2) {
-            result = mixedFractions();
+            result = deferredPaymentPlan();
         } else {
             printTest("ERROR : chooseQuestion() = " + chooseQuestion);
         }
         
         this.question_string = result[0];
-        document.getElementById("questionStringID").innerHTML = result[0];
-        let mcOptions = result.slice(1, result.length);
-        correctAns = mcOptions[0];
+		document.getElementById("questionStringID").innerHTML = result[0];
+		correctAns = result[1];
+		let mcOptions = result.slice(1, result.length);        
+		correctAns = mcOptions[0];
         shuffle(mcOptions);
-        for (let i = 0; i < document.querySelectorAll(".mcAnsBtn").length; i++) {                  
-            document.querySelectorAll(".mcAnsBtn")[i].onclick = () => {checkAns(correctAns, document.querySelectorAll(".mcAnsBtn")[i].innerHTML, this.question_string, "algebra ex05")};
+        for (let i = 0; i < document.querySelectorAll(".mcAnsBtn").length; i++) {            
+            document.querySelectorAll(".mcAnsBtn")[i].onclick = () => {checkAns(correctAns, document.querySelectorAll(".mcAnsBtn")[i].innerHTML, this.question_string, "earning money ex06")};
         }
+
         this.writeFormula();
         this.writeExample();
-    }
 
+    }
+    
     writeFormula = () => {
         document.getElementById("formulaTextID").innerHTML = `
-        n squared is n x n        
+        Net pay = gross pay - tax - other deductions
         `;
     }
 
     writeExample = () => {
         document.getElementById("exampleTextID").innerHTML = `
-        eg1, 4 ^ 2 = 4 x 4
-        <br> 
-        = 16
-        <br>
-        eg2, sqrt(9) = 3
         `;
     }
 
@@ -81,4 +78,4 @@ class ex05_fractions extends React.Component {
     }
 }  
 
-export default ex05_fractions;
+export default ex06_term_payments;

@@ -420,3 +420,77 @@ export function calculatePAYGtax() {
     return [questionText].concat(arr);      
 }
 
+export function termPaymentsPackage() {
+    let ans = 1;
+    let correct_ans, mc1, mc2, mc3;
+    let value = 5 * getRandomNumber(200, 1000, 0, 0); // 1000 - 5000
+    let depositRate = 5 * getRandomNumber(1, 4, 0, 0); // 5% - 20%
+    let years = getRandomNumber(2, 6, 0, 0);
+    let interestRate = getRandomNumber(10, 30, 0, 0);
+
+    let questionText = getNames(1)[0] + " purchases a new computer valued at $" + value + ". This is purchased via a payment plan which involves a deposit of " + depositRate + "%";
+    questionText += " which is repayed over " + years + " years. Simple interest on the balance is charged at " + interestRate + "% pa.<br>";
+
+    let type = getRandomNumber(1, 6, 0, 0);
+    if (type === 1) {
+        questionText += "What is the deposit to be paid?";        
+        ans = value * depositRate/100;
+    } else if (type === 2) {
+        questionText += "What is the balance owing?"
+        ans = value * (100-depositRate)/100;
+    } else if (type === 3) {
+        questionText += "What is the simple interest charged on the <b>balance</b>?"
+        ans = value * ((100-depositRate)/100) * (interestRate/100) * years;
+    } else if (type === 4) {
+        questionText += "What is the total amount to be repaid?";
+        ans = value * ((100-depositRate)/100) * ((interestRate/100) * years + 1);
+    } else if (type === 5) {
+        questionText += "What is the amount of each installment?";
+        ans = (value * ((100-depositRate)/100) * ((interestRate/100) * years + 1)) / (years * 12);
+    } else {
+        questionText += "What is the total price paid?";
+        ans = (value * depositRate/100) + (value * ((100-depositRate)/100) * ((interestRate/100) * years + 1));
+    }
+
+    correct_ans = "$" + ans.toFixed(2);
+    mc1 = "$" + (ans + getRandomNumber(1, 20, 1, 1)).toFixed(2);
+    mc2 = "$" + (ans + getRandomNumber(1, 20, 1, 1)).toFixed(2);
+    mc3 = "$" + (ans + getRandomNumber(1, 20, 1, 1)).toFixed(2);
+
+    let arr = [correct_ans, mc1, mc2, mc3];
+    return [questionText].concat(arr);         
+}
+
+export function deferredPaymentPlan() {
+    let ans = 1;
+    let correct_ans, mc1, mc2, mc3;
+    
+    let name = getNames(1)[0];
+    let value = 100 * getRandomNumber(10, 30, 0, 0);
+    let years = getRandomNumber(3, 6, 0, 0);
+    let months = getRandomNumber(3, 6, 0, 0);
+    let interestRate = getRandomNumber(8, 15, 0, 0);
+    let finalValue = value + value * (interestRate/100) * ((12 * years - months)/12);
+    let repayments = finalValue / (12 * years - months);
+    repayments = parseInt(repayments.toFixed(0));
+    finalValue = repayments * (12 * years - months)
+    let questionText = name + " purchases a $" + value + " TV on a deferred payment plan over " + years + " years. They make no repayments for the first " + months + " months";
+    questionText += ", then they pay $" + repayments + " each month. <br>";
+
+    let type = getRandomNumber(1, 2, 0, 0);
+    if (type === 1) {
+        questionText += "How much has " + name + " paid for the TV by the end of the " + years + " years?";
+        ans = finalValue;
+    } else {
+        questionText += "How much interest has " + name + " paid";
+        ans = finalValue - value;
+    }
+
+    correct_ans = "$" + ans.toFixed(0);
+    mc1 = "$" + (ans + 5*getRandomNumber(1, 20, 0, 1));
+    mc2 = "$" + (ans + 5*getRandomNumber(1, 20, 0, 1));
+    mc3 = "$" + (ans + 5*getRandomNumber(1, 20, 0, 1));
+
+    let arr = [correct_ans, mc1, mc2, mc3];
+    return [questionText].concat(arr);         
+}

@@ -418,18 +418,18 @@ async function addNewClass() {
                         let duplicate = 0;
                         if (myClasses) {
                             for (let i = 0; i < myClasses.length; i++) {
-                                console.log("clasidd" + myClasses[i]);
                                 let myClassDetails = await firebase.getClassDetails(myClasses[i]);
-                                console.log("myclassdetails");
-                                console.log(myClassDetails);
-                                if (myClassDetails.class_name === className) {
-                                    duplicate = 1;
-                                    writeNotification("You already have a class named <i>" + className + "</i>");
-                                    break;
-                                }
+                                if (myClassDetails) {
+                                    if (myClassDetails.class_name === className) {
+                                        duplicate = 1;
+                                        writeNotification("You already have a class named <i>" + className + "</i>");
+                                        break;
+                                    }
+                                }                                
                             }
                         }
                         if (duplicate === 0) {
+                            document.getElementById("formInput").value = "";
                             await firebase.addNewClass(user_id, className);
                             await getClasses();
                         }

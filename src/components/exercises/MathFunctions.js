@@ -61,6 +61,10 @@ export function getHomeworkTopics() {
         , "earning money ex03"
         , "earning money ex04"
         , "earning money ex05"
+        , "earning money ex06"
+        , "investments and loans ex01"
+        , "working with numbers ex05"
+        , "working with numbers ex06"
     ]
     return homeworkTopics;
 }
@@ -177,13 +181,11 @@ export function specialLetterCheck(uA) {
     return uA;
 }
 
-export async function checkAns(correctAns, userAns, questionString, chapter) {    
+export async function checkAns(correctAns, userAns, questionString, chapter) {        
     let result, resultMsg = "";
-    //correctAns = correctAns.toString();
-    //userAns = userAns.toString();
     correctAns = specialLetterCheck(correctAns);
     userAns = specialLetterCheck(userAns);
-    
+
     let points = 0;
     if (userAns !== "") {
         if (userAns === correctAns) {

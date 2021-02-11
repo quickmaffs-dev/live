@@ -34,6 +34,7 @@ let usersPoints = 0;
 let products = [];
 let marketItems = [];
 let packCost = 5000;
+packCost = 0;
 
 
 const Store = () => {
@@ -136,8 +137,6 @@ const Store = () => {
     }
 
     async function showMyItems() {            
-        
-
         let myItems = await firebase.getMyItems(user_id);
         let userDetails = await firebase.getUsersDetails(user_id);
         let row = "";
@@ -305,7 +304,8 @@ const Store = () => {
                     let packItems = [];
                     for (let i = 0; i < m.length; i++) {                
                         let n = getRandomNumber(0, products.length-1, 0, 0);
-                        if (i === 2 || i === 5 || i === 8) {
+                        //if (i === 2 || i === 5 || i === 8) {
+                        if (i === 2 || i === 6 || i === 10) {
                             let pid = products[n].product_id;
                             let duplicate = 0;
                             for (let j = 0; j < packItems.length; j++) {
@@ -347,7 +347,60 @@ const Store = () => {
         }
     }
         
-    function moveSlotTile(i, imgSrc) {
+    function moveSlotTile(i, imgSrc) {           
+        let m = document.getElementsByClassName("slot");        
+        m[i].src = imgSrc;
+        let h = 200; // 200 px
+        let buff = 50;
+        let slots = 4;
+        let tileRow = i % slots;
+        let tileCol = Math.floor(i / 4);
+        //if (i < slots) {
+        if (i <= slots*50) {                
+            let f = setInterval(move, 10);
+            let x = 0;
+            let rotation = 0;
+            let chk = 0;
+            function move() {
+                chk += 1;
+                x += (5 - tileCol);                
+                m[i].style.top = (x + buff) + "px";
+                if (x > h * (slots - tileRow)) {
+                    x = -tileRow * h;
+                    rotation += 1;
+                }
+                
+                if (rotation > 2) {
+                    if (tileCol > 1) {                                                
+                        if (x === 2) {
+                            clearInterval(f);
+                        }
+                    } else {
+                        if (x === 0) {
+                            clearInterval(f);
+                        }
+                    }
+                }    
+
+                if (chk > 900) {
+                    m[i].style.top = -tileRow * h + "px";
+                    clearInterval(f);
+                }
+                /*
+                m[i].style.opacity = "1";
+
+                if (x < -tileRow * h) {
+                    m[i].style.opacity = "0";
+                }
+                if (x > h * (slots - tileRow)) {
+                    m[i].style.opacity = "0";
+                }
+                */
+            }
+        }
+
+        
+        /*
         let m = document.getElementsByClassName("slot");        
         m[i].src = imgSrc;
         let slots = 4;
@@ -360,7 +413,7 @@ const Store = () => {
         let speed = 10;        
         let rotation = 0;
         let countdown = 3;
-        function move() {        
+        function move() {
             rotation += 1;        
             let revs = [42, 60, 78];
 
@@ -389,6 +442,7 @@ const Store = () => {
                 m[j].style.opacity = "0";
             }
         }
+        */
     }
 
     async function openMarket() {     

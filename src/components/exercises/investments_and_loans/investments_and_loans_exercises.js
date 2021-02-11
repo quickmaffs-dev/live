@@ -25,9 +25,9 @@ export function compoundInterest() {
     } else {
         questionText = "After " + n + " years an investment of $" + numberWithCommas(p) + " is worth $" + numberWithCommas(c.toFixed(2)) + ". What was the interest rate p.a?";
         correct_ans = r + "%";
-        mc1 = (r + getRandomNumber(1, 3, 0, 1)) + "%";
-        mc2 = (r + getRandomNumber(1, 3, 0, 1)) + "%";
-        mc3 = (r + getRandomNumber(1, 3, 0, 1)) + "%";
+        mc1 = (parseFloat(r) + getRandomNumber(1, 3, 0, 1)).toFixed(2) + "%";
+        mc2 = (parseFloat(r) + getRandomNumber(1, 3, 0, 1)).toFixed(2) + "%";
+        mc3 = (parseFloat(r) + getRandomNumber(1, 3, 0, 1)).toFixed(2) + "%";
     }
     //this.question_string = questionText;
     //document.getElementById("questionStringID").innerHTML = questionText;        
