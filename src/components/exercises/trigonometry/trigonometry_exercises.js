@@ -1,9 +1,9 @@
-import {getRandomNumber, getNames, setupCanvas} from '../MathFunctions';
+import {getRandomNumber, getNames, setupCanvas, dpCheck, getPronumeral} from '../MathFunctions';
 import trigElevation from '../../../img/trigElevation.png';
 import trigDepression from '../../../img/trigDepression.png';
 
 
-function drawRightTriangle(opp, adj, hyp, theta) {
+function drawRightTriangle(opp, adj, hyp, theta, rightAngle) {
     document.getElementById("questionDiagramID").style.display = "block";
     document.getElementById("questionDiagramID").innerHTML = "";
 
@@ -51,27 +51,30 @@ function drawRightTriangle(opp, adj, hyp, theta) {
             height: 0;
             border-left: 500px solid transparent;
             border-right: 0px solid transparent;
-            border-bottom: 200px solid #555;                
+            border-bottom: 200px solid #fff;
         "></div>
         <br />
     `;
 
     // right angle
-    document.getElementById("questionDiagramID").innerHTML += `
-    <div style="                
-        position: absolute;
-        top: 230px;
-        left: 476px;
-    ">
+    if (rightAngle === 1) {
+        document.getElementById("questionDiagramID").innerHTML += `
         <div style="                
-        position: relative;
-        bottom: 0;
-        right: 0;            
-        height: 20px;
-        width: 20px;
-        border: solid black 2px;
-        "></div>
-    </div>`;
+            position: absolute;
+            top: 226px;
+            left: 478px;
+        ">
+            <div style="                
+            position: relative;
+            bottom: 0;
+            right: 0;            
+            height: 20px;
+            width: 20px;
+            border: solid black 1px;
+
+            "></div>
+        </div>`;
+    }
 }
 
 export function findRatio() {        
@@ -122,7 +125,7 @@ export function findRatio() {
     let questionText = "What is " + trig + "&#x3B8";
     //this.question_string = questionText;
     //document.getElementById("questionStringID").innerHTML = questionText;
-    drawRightTriangle(opp, adj, hyp, "&#x3B8");
+    drawRightTriangle(opp, adj, hyp, "&#x3B8", 1);
 
     let arr = [correct_ans, mc1, mc2, mc3];
     return [questionText].concat(arr);
@@ -170,7 +173,7 @@ export function findTheta() {
     let questionText = "What is &#x3B8";        
     //this.question_string = questionText;
     //document.getElementById("questionStringID").innerHTML = questionText;
-    drawRightTriangle(opp, adj, hyp, "&#x3B8");
+    drawRightTriangle(opp, adj, hyp, "&#x3B8", 1);
 
     let arr = [correct_ans, mc1, mc2, mc3];
     return [questionText].concat(arr);
@@ -234,7 +237,7 @@ export function findSide() {
     //this.question_string = questionText;
     //document.getElementById("questionStringID").innerHTML = questionText;
     theta += "<sup>O</sup>";
-    drawRightTriangle(opp, adj, hyp, theta);
+    drawRightTriangle(opp, adj, hyp, theta, 1);
 
     let arr = [correct_ans, mc1, mc2, mc3];
     return [questionText].concat(arr);
@@ -754,5 +757,148 @@ export function findAngle() {
     let mc2 = cA + getRandomNumber(3, 10, 0, 1);
     let mc3 = cA + getRandomNumber(3, 10, 0, 1);
     let arr = [correct_ans, mc1, mc2, mc3];
+    return [questionText].concat(arr);
+}
+
+export function squareNumbers() {
+    let dp = getRandomNumber(0, 2, 0, 0);
+    let x = getRandomNumber(1, 20, dp, 1);
+    let questionText = "What is (" + x + ")<sup>2</sup>";
+    let correct_ans = (x ** 2).toFixed(2 * dp);
+    let mc1 = ((x + getRandomNumber(1, 5, 1, 1)) ** 2).toFixed(2 * dp);
+    let mc2 = ((x + getRandomNumber(1, 5, 1, 1)) ** 2).toFixed(2 * dp);
+    let mc3 = ((x + getRandomNumber(1, 5, 1, 1)) ** 2).toFixed(2 * dp);
+    let arr = [correct_ans, mc1, mc2, mc3];
+    return [questionText].concat(arr);
+}
+
+export function squareRoots() {
+    let dp = getRandomNumber(0, 2, 0, 0);
+    let x = getRandomNumber(1, 20, dp, 0);
+    let questionText = "What is &radic;<span style='text-decoration: overline'>" + (x ** 2).toFixed(2 * dp) + "</span>";
+    let correct_ans = x;
+    let mc1 = dpCheck(x + getRandomNumber(1, 5, 1, 1));
+    let mc2 = dpCheck(x + getRandomNumber(1, 5, 1, 1));
+    let mc3 = dpCheck(x + getRandomNumber(1, 5, 1, 1));
+    let arr = [correct_ans, mc1, mc2, mc3];
+    return [questionText].concat(arr);
+}
+
+export function pythagRoots() {
+    let dp = getRandomNumber(0, 2, 0, 0);
+    let a = getRandomNumber(1, 20, dp, 0);
+    let b = getRandomNumber(1, 20, dp, 0);    
+    let questionText, correct_ans;
+    if (getRandomNumber(1, 2, 0, 0) === 1) {
+        questionText = "What is &radic;<span style='text-decoration: overline'>(" + a + ")</span><sup>2</sup><span style='text-decoration: overline'> + (" + b + ")</span><sup>2</sup>";
+        correct_ans = Math.sqrt(a ** 2 + b ** 2).toFixed(2);
+    } else {
+        a = getRandomNumber(b + 1, 21, dp, 0);        
+        while (a === b) {
+            a = getRandomNumber(b + 1, 21, dp, 0);
+        }
+        questionText = "What is &radic;<span style='text-decoration: overline'>(" + a + ")</span><sup>2</sup><span style='text-decoration: overline'> - (" + b + ")</span><sup>2</sup>";
+        correct_ans = Math.sqrt(a ** 2 - b ** 2).toFixed(2);
+    }
+    
+    let mc1 = dpCheck(parseFloat(correct_ans) + getRandomNumber(1, 5, 2, 1));
+    let mc2 = dpCheck(parseFloat(correct_ans) + getRandomNumber(1, 5, 2, 1));
+    let mc3 = dpCheck(parseFloat(correct_ans) + getRandomNumber(1, 5, 2, 1));
+    let arr = [correct_ans, mc1, mc2, mc3];
+    return [questionText].concat(arr);
+}
+
+export function pythagorasTriangles() {
+    // draw triangle
+    let dp = getRandomNumber(0, 2, 0, 0);
+    let a = getRandomNumber(1, 10, dp, 0);
+    let b = getRandomNumber(1, 10, dp, 0);
+    let c = parseFloat(Math.sqrt(a ** 2 + b ** 2).toFixed(dp));
+    let theta = "";
+    let side = getRandomNumber(1, 3, 0, 0);
+    let correct_ans = 1;
+    let p = getPronumeral();
+    if (side === 1) {
+        correct_ans = a;
+        a = p;
+    } else if (side === 2) {
+        correct_ans = b;
+        b = p;
+    } else {
+        correct_ans = c;
+        c = p;
+    }
+    drawRightTriangle(a, b, c, theta, 1);
+    let questionText = "What is the value of " + p + "?";
+    if (dp === 0) {
+        dp += 1;
+    }
+    let mc1 = dpCheck(correct_ans + getRandomNumber(1, 5, dp, 1));
+    let mc2 = dpCheck(correct_ans + getRandomNumber(1, 5, dp, 1));
+    let mc3 = dpCheck(correct_ans + getRandomNumber(1, 5, dp, 1));
+    let arr = [correct_ans, mc1, mc2, mc3];
+    return [questionText].concat(arr);
+}
+
+export function pythagorasTest() {
+    // draw triangle
+    let dp = getRandomNumber(0, 2, 0, 0);
+    let a = getRandomNumber(1, 10, dp, 0);
+    let b = getRandomNumber(1, 10, dp, 0);
+    if (dp === 0) {
+        dp += 1;
+    }
+    let c = parseFloat(Math.sqrt(a ** 2 + b ** 2).toFixed(dp));
+    let theta = "";
+    drawRightTriangle(a, b, c, theta, 0);
+    let questionText = "Is the triangle right angled?";
+    
+    let correct_ans = "yes";
+    let mc1 = "yes";
+    let mc2 = "no";
+    let mc3 = "no";
+
+    if (getRandomNumber(1, 2, 0, 0) === 1) {
+        c += getRandomNumber(1, 1, 0, 1);
+        correct_ans = "no";
+        mc1 = "no";
+        mc2 = "yes";
+        mc3 = "yes";
+    }
+
+    let arr = [correct_ans, mc1, mc2, mc3];    
+    return [questionText].concat(arr);
+}
+
+export function pythagoreanTriad() {
+    let a = getRandomNumber(1, 10, 0, 0);
+    let b = getRandomNumber(1, 10, 0, 0);
+    let c = Math.ceil(Math.sqrt(a ** 2 + b ** 2));
+    let k = getRandomNumber(1, 5, 0, 0);
+    let questionText;
+    let correct_ans, mc1, mc2, mc3;
+    let triads = ["(3, 4, 5)", "(6, 8, 10)", "(5, 12, 13)", "(10, 24, 26)", "(9, 40, 41)", "(11, 60, 61)", "(7, 24, 25)", "(30, 40, 50)"];    
+    if (getRandomNumber(1, 2, 0, 0) === 1) {
+        questionText = "Which one of the following <strong>IS</strong> a pythagorean triad?";        
+        correct_ans = triads[getRandomNumber(0, triads.length-1, 0, 0)];        
+        mc1 = "(" + k*a + ", " + k*b + ", " + dpCheck(k*c + getRandomNumber(1, 1, 0, 1)) + ")";
+        mc2 = "(" + k*a + ", " + dpCheck(k*b + getRandomNumber(1, 1, 0, 1)) + ", " + k*c + ")";
+        mc3 = "(" + dpCheck(k*a + getRandomNumber(1, 1, 0, 1)) + ", " + k*b + ", " + k*c + ")";
+    } else {
+        questionText = "Which one of the following <strong>IS NOT</strong> a pythagorean triad?";
+        correct_ans = "(" + k*a + ", " + k*b + ", " + k*c + ")";    
+        
+        mc1 = triads[getRandomNumber(0, triads.length-1, 0, 0)];
+        mc2 = triads[getRandomNumber(0, triads.length-1, 0, 0)];
+        while (mc2 === mc1) {
+            mc2 = triads[getRandomNumber(0, triads.length-1, 0, 0)];
+        }
+        mc3 = triads[getRandomNumber(0, triads.length-1, 0, 0)];
+        while (mc3 === mc1 || mc3 === mc2) {
+            mc3 = triads[getRandomNumber(0, triads.length-1, 0, 0)];
+        }
+    }
+
+    let arr = [correct_ans, mc1, mc2, mc3];    
     return [questionText].concat(arr);
 }

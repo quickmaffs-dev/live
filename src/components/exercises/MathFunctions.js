@@ -53,9 +53,6 @@ export function getDate() {
 export function getHomeworkTopics() {
     let homeworkTopics = [
         "algebra ex01"
-        , "algebra ex02"
-        , "algebra ex03"
-        , "algebra ex04"
         , "earning money ex01"
         , "earning money ex02"
         , "earning money ex03"
@@ -65,6 +62,13 @@ export function getHomeworkTopics() {
         , "investments and loans ex01"
         , "working with numbers ex05"
         , "working with numbers ex06"
+        , "rates and ratios ex01"
+        , "rates and ratios ex04"
+        , "coordinate geometry ex01"
+        , "coordinate geometry ex02"
+        , "coordinate geometry ex03"
+        , "coordinate geometry ex04"
+        , "coordinate geometry ex05"
     ]
     return homeworkTopics;
 }
@@ -383,15 +387,6 @@ export function simplifyRatio(a, b) {
     return x;
 }
 
-export function getYearUrl() {
-    let url = window.location.search;
-    let urlSplit = url.split("%");
-    let yr = "";
-    if (urlSplit[1] !== undefined) {
-        yr = urlSplit[1];
-    }
-    return yr;
-}
 
 //export function setupCanvas(height, width) {
 export function setupCanvas() {

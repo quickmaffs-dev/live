@@ -1,9 +1,9 @@
 import React from 'react';
 import {getRandomNumber, printTest, shuffle, reset, answerType, checkAns} from '../MathFunctions';
 import Workspace from '../../Workspace';
-import {convertRatesDouble, convertRatesSingle, limitsOfAccuracy, rateChangeAppliations} from './rates_and_ratios_exercises';
+import {bodmas, inequalities, integerAddition, integerDivision, integerMultiplication, temperatureChange} from './working_with_numbers_exercises';
 
-class ex01_converting_rates extends React.Component {
+class ex07_integers extends React.Component {
     constructor(props) {
         super(props);
         this.x = 1;
@@ -18,8 +18,8 @@ class ex01_converting_rates extends React.Component {
 
     
     componentDidMount(){
-        document.querySelectorAll(".topicHeading")[0].innerHTML = "Rates and ratios";
-        document.querySelectorAll(".topicSubHeading")[0].innerHTML = "This will ask questions on rates and how to convert them. Click the Start button below to begin...";            
+        document.querySelectorAll(".topicHeading")[0].innerHTML = "Working with Numbers";
+        document.querySelectorAll(".topicSubHeading")[0].innerHTML = "This will ask questions on integers. Click the Start button below to begin...";
         document.getElementById("startSessionBtnID").onclick = () => {this.makeQuestion()}; //this.makeQuestion
         document.getElementById("nextQuesBtnID").onclick = () => {this.makeQuestion()};
     }
@@ -30,42 +30,41 @@ class ex01_converting_rates extends React.Component {
         answerType(1); // multiple choice == 1 // each exercise (ex01, ex02...) should be of same answer type so that user doesnt switch from mc to input etc
         
         this.numQuestions += 1;
-        let numQuestionTypes = 4;
-        let correctAns, result;
-        //chooseQuestion = 1; // debugging
-        if (localStorage.getItem("QuickM_u_level") !== null) {
-            if (localStorage.getItem("QuickM_u_level") <= 10) {
-                numQuestionTypes = 2;
-            }
-        }
+        let numQuestionTypes = 6;
         let chooseQuestion = getRandomNumber(1, numQuestionTypes, 0, 0);
+        let correctAns, result;  
+        chooseQuestion = numQuestionTypes;      
         if (chooseQuestion === 1) {
-            result = convertRatesSingle();
+            result = integerAddition();
         } else if (chooseQuestion === 2) {
-            result = convertRatesDouble();              
+            result = inequalities();
         } else if (chooseQuestion === 3) {
-            result = limitsOfAccuracy();  
+            result = integerMultiplication();
         } else if (chooseQuestion === 4) {
-            result = rateChangeAppliations();
+            result = integerDivision();
+        } else if (chooseQuestion === 5) {
+            result = bodmas();
+        } else if (chooseQuestion === 6) {
+            result = temperatureChange();
         } else {
             printTest("ERROR : chooseQuestion() = " + chooseQuestion);
-        }        
+        }
         
-		this.question_string = result[0];
+        this.question_string = result[0];
 		document.getElementById("questionStringID").innerHTML = result[0];
 		correctAns = result[1];
 		let mcOptions = result.slice(1, result.length);        
 		correctAns = mcOptions[0];
         shuffle(mcOptions);
         for (let i = 0; i < document.querySelectorAll(".mcAnsBtn").length; i++) {            
-            document.querySelectorAll(".mcAnsBtn")[i].onclick = () => {checkAns(correctAns, document.querySelectorAll(".mcAnsBtn")[i].innerHTML, this.question_string, "rates and ratios ex01")};            
+            document.querySelectorAll(".mcAnsBtn")[i].onclick = () => {checkAns(correctAns, document.querySelectorAll(".mcAnsBtn")[i].innerHTML, this.question_string, "working with numbers ex07")};
         }
 
         this.writeFormula();
         this.writeExample();
 
     }
-
+    
     writeFormula = () => {
         document.getElementById("formulaTextID").innerHTML = `
         n squared is n x n        
@@ -74,11 +73,7 @@ class ex01_converting_rates extends React.Component {
 
     writeExample = () => {
         document.getElementById("exampleTextID").innerHTML = `
-        eg1, 4 ^ 2 = 4 x 4
-        <br> 
-        = 16
-        <br>
-        eg2, sqrt(9) = 3
+        If Mac earns a wage of $16 an hour and he works 30 hours a week, he earns a total of $16 &#215; 30 hours = $480 a week.
         `;
     }
 
@@ -92,4 +87,4 @@ class ex01_converting_rates extends React.Component {
     }
 }  
 
-export default ex01_converting_rates;
+export default ex07_integers;
