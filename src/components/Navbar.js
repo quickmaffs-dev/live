@@ -11,7 +11,10 @@ const Navbar = () => {
 
   async function checkIfUserIsLoggedIn() {
     let user_id = await firebase.getCurrentUserID();
-    let user_name = await firebase.getCurrentUsername();
+    let u = await firebase.getCurrentUsername();
+    let user_name = u.username;
+    
+    localStorage.setItem("QuickM_u_level", JSON.stringify(u.level));
     if (user_id !== null) {
       //console.log("user id is " + user_id);
       document.getElementById("usernameID").style.display = "block";

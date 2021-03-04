@@ -274,6 +274,8 @@ async function getClasses() {
                             for (let k = 0; k < classMembers.length; k++) {
                                 if (homeworkDetails[j].uid === classMembers[k].uid && myClasses[i].cid === classMembers[k].cid) {
                                     uName = classMembers[k].username;
+                                    uName = uName.split("@")[0];
+                                    uName = uName.split(".")[0];
                                     break;
                                 }
                             }
@@ -283,7 +285,7 @@ async function getClasses() {
                                 } else {
                                     row += "<tr><td>" + homeworkDetails[j].topic + "</td><td style='text-align:center'>" + homeworkDetails[j].questions + "</td><td>" + uName + "</td><td></td></tr>";
                                 }
-                            }                            
+                            }
                         }
                     }
                     row += "</tbody></table>";

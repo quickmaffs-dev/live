@@ -44,6 +44,7 @@ class Firebase {
             , avatar: u_id%6
             , hat: 0
             , shirt: 0
+            , level: 12
         });
         this.currentUserID = u_id;
         await this.loginRealTime(em, pass);
@@ -159,16 +160,20 @@ class Firebase {
     }
 
     async getCurrentUsername() {        
-        let username = null;
+        //let username = null;
         let db = "users-db";
         let x = await firebase.database().ref(db).once('value');
+        let u = null;
         for (let k in x.val()) {
             if (this.u_id === x.val()[k].user_id) {
-                username = x.val()[k].email;
+                u = {
+                    username : x.val()[k].email,
+                    level : x.val()[k].level
+                }
             }
         }
 
-        return username;
+        return u;
     }
     
     async loginRealTime(em, pass) {

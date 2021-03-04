@@ -230,7 +230,11 @@ const Battle = () => {
             await sleep(1000);
             document.getElementById("loadingBattleTextID").style.transition = "all 3s";
             document.getElementById("loadingBattleTextID").style.opacity = "0";
-            setTimeout(function() {document.getElementById("loadingBattleTextID").style.display = "none";}, 3000);
+            setTimeout(function() {
+                if (document.getElementById("loadingBattleTextID")) {
+                    document.getElementById("loadingBattleTextID").style.display = "none";
+                }
+            }, 3000);
         }
     }
     
@@ -256,7 +260,8 @@ const Battle = () => {
             document.getElementsByClassName("foundOpponent")[0].innerHTML = playerUsername;    
         }        
         
-        while (numPlayers < 6) {
+        let maxPlayers = document.getElementsByClassName("findOpponent").length;
+        while (numPlayers < maxPlayers) {
             await sleep(getRandomNumber(1000, 6000, 0, 0));
             /*
             document.getElementsByClassName("findOpponent")[numPlayers].style.transition = "all 2s";
@@ -327,16 +332,19 @@ const Battle = () => {
             if (userDetails.hat !== 0) {
                 let hatId = await firebase.getProductId(userDetails.hat); // hatId is the product id
                 let hat = getProductDetails(hatId); // item_id
-                
-                document.getElementsByClassName("playerImg")[1].style.display = "block";
-                document.getElementsByClassName("playerImg")[1].src = getImgSrc("hat", hat.item_id);
+                if (document.getElementsByClassName("playerImg")) {
+                    document.getElementsByClassName("playerImg")[1].style.display = "block";
+                    document.getElementsByClassName("playerImg")[1].src = getImgSrc("hat", hat.item_id);
+                }                
             }
             if (userDetails.shirt !== 0) {
                 let shirtId = await firebase.getProductId(userDetails.shirt); // hatId is the product id
                 let shirt = getProductDetails(shirtId); // item_id
+                if (document.getElementsByClassName("playerImg")) {
+                    document.getElementsByClassName("playerImg")[2].style.display = "block";
+                    document.getElementsByClassName("playerImg")[2].src = getImgSrc("shirt", shirt.item_id);
+                }
                 
-                document.getElementsByClassName("playerImg")[2].style.display = "block";
-                document.getElementsByClassName("playerImg")[2].src = getImgSrc("shirt", shirt.item_id);
             }
 
             for (let i = 1; i < document.getElementsByClassName("player").length; i++) {
@@ -676,8 +684,6 @@ const Battle = () => {
                     <div className="waitingRoom" style={{display:"none"}}>
                         <div className="findOpponentsList" style={{display:"none"}}>
                             <p id="playersOnlineID"></p>
-                            <p className="findOpponent">Looking for opponent...</p><p className="foundOpponent" style={{display: "none"}}>Player found</p>
-                            <p className="findOpponent">Looking for opponent...</p><p className="foundOpponent" style={{display: "none"}}>Player found</p>
                             <p className="findOpponent">Looking for opponent...</p><p className="foundOpponent" style={{display: "none"}}>Player found</p>
                             <p className="findOpponent">Looking for opponent...</p><p className="foundOpponent" style={{display: "none"}}>Player found</p>
                             <p className="findOpponent">Looking for opponent...</p><p className="foundOpponent" style={{display: "none"}}>Player found</p>

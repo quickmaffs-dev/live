@@ -45,6 +45,7 @@ import ex04_sine_rule from './components/exercises/trigonometry/ex04_sine_rule';
 import ex05_cosine_rule from './components/exercises/trigonometry/ex05_cosine_rule';
 import ex06_solve_ratios from './components/exercises/trigonometry/ex06_solve_ratios';
 import ex07_triangle_properties from "./components/exercises/trigonometry/ex07_triangle_properties";
+import ex08_pythagoras from "./components/exercises/trigonometry/ex08_pythagoras";
 
 import ex01_solve_equations from "./components/exercises/equations/ex01_solve_equations";
 import ex02_equation_problems from "./components/exercises/equations/ex02_equation_problems";
@@ -92,6 +93,7 @@ import gen_2_2018 from "./components/exercises/hsc/gen_2_2018";
 import standard_short_answer from "./components/exercises/hsc/standard_short_answer";
 import ex01_recurring_decimals from "./components/exercises/working_with_numbers/ex01_recurring_decimals";
 import ex02_percentages from "./components/exercises/working_with_numbers/ex02_percentages";
+import ex07_integers from "./components/exercises/working_with_numbers/ex07_integers";
 
 function App() {
   return (
@@ -116,6 +118,7 @@ function App() {
               {/* year 7 */}
               <Route path="/exercises/algebra/ex01_addition_and_subtraction" component={ex01_addition_and_subtraction} /> 
               <Route path="/exercises/algebra/ex02_multiplication" component={ex02_multiplication} /> 
+              <Route path="/exercises/working_with_numbers/ex07_integers" component={ex07_integers} /> 
 
               {/* year 9 */}
               <Route path="/exercises/algebra/ex03_bidmas" component={ex03_bidmas} /> 
@@ -135,6 +138,7 @@ function App() {
               <Route path="/exercises/earning_money/ex06_term_payments" component={ex06_term_payments} />
               <Route path="/exercises/investigating_data/ex01_averages_and_range" component={ex01_averages_and_range} />
               <Route path="/exercises/trigonometry/ex07_triangle_properties" component={ex07_triangle_properties} />
+              <Route path="/exercises/trigonometry/ex08_pythagoras" component={ex08_pythagoras} />
               <Route path="/exercises/equations/ex01_solve_equations" component={ex01_solve_equations} />
               <Route path="/exercises/equations/ex02_equation_problems" component={ex02_equation_problems} />
 

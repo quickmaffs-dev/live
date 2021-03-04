@@ -13,6 +13,7 @@ function Chapters() {
               <li><Link to="/exercises/rates_and_ratios/ex04_surds?yr=%10%">Ex 04 - Surds</Link></li>
               <li><Link to="/exercises/working_with_numbers/ex01_recurring_decimals?yr=%10%">Ex 05 - Recurring Decimals</Link></li>
               <li><Link to="/exercises/working_with_numbers/ex02_percentages?yr=%10%">Ex 06 - Percentages</Link></li>
+              <li><Link to="/exercises/working_with_numbers/ex07_integers?yr=%7%">Ex 07 - Integers</Link></li>
 
               <h4>Chapter 2: Algebra</h4>
               <li><Link to="/exercises/algebra/ex01_addition_and_subtraction?yr=%7%">Ex 01 - Addition and subtraction</Link></li>
@@ -77,6 +78,7 @@ function Chapters() {
               <li><Link to="/exercises/trigonometry/ex05_cosine_rule?yr=%12%">Ex 05 - Cosine Rule</Link></li>
               <li><Link to="/exercises/trigonometry/ex06_solve_ratios?yr=%12%">Ex 06 - Solve Ratios</Link></li>
               <li><Link to="/exercises/trigonometry/ex07_triangle_properties?yr=%9%">Ex 07 - Triangle Properties</Link></li>
+              <li><Link to="/exercises/trigonometry/ex08_pythagoras?yr=%9%">Ex 08 - Pythagoras</Link></li>
 
               <h4>Chapter 11: Simultaneous Equations</h4>
               <li><Link to="/exercises/simultaneous_equations/ex01_identify_graphs?yr=%12%">Ex 01 - Identify Graphs</Link></li>
